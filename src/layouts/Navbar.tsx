@@ -1,14 +1,19 @@
-import { Sun, Moon } from "lucide-react";
-import Button from "../components/Button";
+import { useState } from 'react';
+import { Sun, Moon, AlignJustify } from "lucide-react";
 import useDarkMode from "../hooks/useDarkMode";
 import { RootState, AppDispatch } from '../features/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleForm } from '../features/redux/SwitchFormSlice';
 import { ActivePath } from '../helpers/pathChecker';
+import Button from "../components/Button";
+import Sidebar from "../components/Sidebar";
+import StaticSidebar from "../components/StaticSidebar";
+import BackdropBg from "../components/BackdropBg";
 import Image from '../components/Image';
 import CodehubLogo from '../assets/CodehubLogo.png';
 
 const Navbar = () => {
+  const [showSidebar, setSidebar] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const { isSignUp } = useSelector((state: RootState) => state.switchForm);
   const [darkMode, setDarkMode] = useDarkMode();
@@ -17,11 +22,17 @@ const Navbar = () => {
   return (
     <nav className={`bg-inherit dark:bg-zinc-950 py-2 flex flex-row px-2 md:px-0 justify-center items-center ${!SignInPage ? "border-b dark:border-zinc-900 border-zinc-200" : ""}`}>
       <div className="flex items-center mr-auto md:ml-6 ml-3 space-x-1">
+        {!SignInPage && <Button className="p-2 rounded-md bg-zinc-300/30 border border-zinc-300 dark:border-zinc-900 p-2 text-zinc-400 dark:text-zinc-200 dark:bg-zinc-800" icon={<AlignJustify sized={22} />} />}
         <div className="w-10 h-10">
           <Image url={CodehubLogo} className="h-full w-full" />
         </div>
         <label className="dark:text-zinc-200 font-extrabold text-xl md:text-2xl hidden md:inline">CodeHub</label> 
       </div>
+      {!SignInPage && <BackdropBg show={showSidebar} setBackdrop={setSidebar}>
+        <Sidebar showSidebar={showSidebar} >
+          <StaticSidebar />
+        </Sidebar>
+      </BackdropBg>} 
       <div className="flex flex-row ml-auto gap-x-2 md:mr-10">
         {SignInPage && <Button className="bg-emerald-600 dark:bg-emerald-400/25 dark:border dark:border-emerald-50/20 rounded-md py-2 px-4 text-emerald-50 font-medium w-24" text={isSignUp ? "Sign In" : "Sign Up"} onClick={() => dispatch(handleForm({ isSignUp: !isSignUp}))}/>} 
         <Button
