@@ -2,15 +2,15 @@ import StaticSidebar from '../../layouts/StaticSidebar';
 import UserPost from '../../components/UserPost';
 import { itemsType } from '../../helpers/itemsType';
 import HomeNav from '../../layouts/HomeNav';
-
+import { LayoutGrid, BookOpen, Layers, Award, Calendar } from 'lucide-react';
 const Challenge = () => {
   const items: itemsType[] = [
-  { name: "All Challenges" },
-  { name: "Beginner" },
-  { name: "Intermediate" },
-  { name: "Advanced" },
-  { name: "Weekly Challenges" },
-  ]; 
+  { name: "Overview", icon: <LayoutGrid size={22} /> },
+  { name: "Beginner", icon: <BookOpen size={22} /> },
+  { name: "Intermediate", icon: <Layers size={22} /> },
+  { name: "Advanced", icon: <Award size={22} /> },
+  { name: "Weekly", icon: <Calendar size={22} /> },
+  ];
   return (
     <div className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row" >
       <main className="md:flex-[2] order-2  h-full pb-12 bg-inherit">    

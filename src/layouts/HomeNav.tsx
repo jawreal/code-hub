@@ -19,7 +19,8 @@ const HomeNav = ({ items }: NAV_PROPS) => {
         return (
           <li key={item.name} className={`flex flex-col items-center px-4 dark:text-zinc-200 ${index < 2 ? "block" : "hidden md:block"} py-2 md:py-1`}>
             <Link className={`w-full flex items-center justify-center gap-x-2 ${currPath ? "rounded font-medium" : "font-base"}`} to={`${item.name.toLowerCase()}`}>
-              <span className="dark:text-zinc-200 whitespace-nowrap">{item.name}</span>
+              {item.icon && <span className="dark:text-zinc-200 text-zinc-400">{item.icon}</span>}
+              <span className="dark:text-zinc-200 whitespace-nowrap text-sm">{item.name}</span>
             </Link>
             {currPath && <span className="inline-block w-full rounded h-1 bg-emerald-600"></span>}
           </li>
@@ -37,8 +38,9 @@ const HomeNav = ({ items }: NAV_PROPS) => {
             <ul className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-900 p-2 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-900 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
               {items.slice(2).map((dpItem: itemsType) => (
                 <li key={dpItem.name} className="w-full p-2 dark:text-zinc-200">
-                  <Link to={dpItem.name.toLowerCase()}>
-                    {dpItem.name}
+                  <Link className="w-full flex items-center gap-x-2" to={`${dpItem.name.toLowerCase()}`}>
+                 {dpItem.icon && <span className="dark:text-zinc-200 text-zinc-400">{dpItem.icon}</span>}
+                  <span className="dark:text-zinc-200 whitespace-nowrap text-sm">{dpItem.name}</span>
                   </Link>
                 </li>
               ))} 
