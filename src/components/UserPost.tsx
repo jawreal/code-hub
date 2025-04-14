@@ -3,7 +3,7 @@ import { ArrowBigUp, Eye, MessageSquare } from 'lucide-react';
 
 const UserPost = ({ width }:{ width: string; }) => {
   return (
-   <div className={`${width} border-t-none border-b border-zinc-300 dark:border-zinc-900 flex flex-col items-center px-1 pb-1 bg-inherit bg-inherit`}>
+   <div className={`${width} border-t-none border-b border-zinc-200 dark:border-zinc-900 flex flex-col items-center px-1 pb-1 bg-inherit bg-inherit`}>
     <div className="pt-2 px-3 w-full flex items-center space-x-2">
      <div className="bg-zinc-300 rounded-full h-8 w-8"></div>
         <label className="font-medium flex flex-col dark:text-zinc-200">
