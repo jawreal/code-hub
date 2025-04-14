@@ -14,7 +14,7 @@ const StaticSidebar = () => {
   ]; 
   return (
     <aside className="w-full flex flex-row md:flex-col bg-inherit">
-      <ul className="flex flex-row md:flex-col justify-around md:justify-start md:space-x-0 w-full overflow-x-auto pt-1 md:pt-0 border-t border-zinc-300 dark:border-zinc-900 md:border-none bg-inherit">
+      <ul className="flex flex-row md:flex-col justify-around md:justify-start md:space-x-0 w-full overflow-x-auto pt-1 md:pt-0 border-t border-zinc-200 dark:border-zinc-900 md:border-none bg-inherit">
         {menuItems?.map((item: itemsType) => {
           const newPath = item.name.replaceAll(" ", "-");
           const currPath = ActivePath(newPath);
