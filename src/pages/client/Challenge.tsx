@@ -1,16 +1,15 @@
 import StaticSidebar from '../../layouts/StaticSidebar';
 import UserPost from '../../components/UserPost';
-import { Link } from 'react-router-dom';
 import { itemsType } from '../../helpers/itemsType';
 import HomeNav from '../../layouts/HomeNav';
 
 const Challenge = () => {
-  const items: itemsType = [
+  const items: itemsType[] = [
   { name: "All Challenges" },
-  { name: "Beginner"},
-  { name: "Intermediate"},
-  { name: "Advanced"},
-  { name: "Weekly Challenges"},
+  { name: "Beginner" },
+  { name: "Intermediate" },
+  { name: "Advanced" },
+  { name: "Weekly Challenges" },
   ]; 
   return (
     <div className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row" >

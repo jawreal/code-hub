@@ -5,7 +5,11 @@ import { ActivePath } from '../helpers/pathChecker';
 import { itemsType } from '../helpers/itemsType';
 import Button from '../components/Button';
 
-const HomeNav = ({ items }: itemsType) => {
+interface NAV_PROPS {
+  items: itemsType[];
+}
+
+const HomeNav = ({ items }: NAV_PROPS) => {
   const [showDropdown, setDropdown] = useState<boolean>(false);
   
   return (

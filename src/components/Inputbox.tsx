@@ -5,7 +5,7 @@ import { Eye } from 'lucide-react';
 interface INPUTBOX_TYPE {
   placeholder: string;
   icon?: React.ReactNode;
-  type: string;
+  type?: string;
 };
 
 const Inputbox = ({ placeholder, icon, type }: INPUTBOX_TYPE) => {
