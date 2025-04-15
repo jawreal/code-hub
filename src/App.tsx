@@ -4,6 +4,7 @@ import Layout from './layouts/Layout';
 import Home from './pages/client/Home';
 import Challenge from './pages/client/Challenge';
 import CreatePost from './pages/client/CreatePost';
+import Questions from './pages/client/Questions';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route path="home" element={<Home/>} />  
             <Route path="challenges" element={<Challenge />} /> 
             <Route path="create-post" element={<CreatePost />} /> 
+            <Route path="questions" element={<Questions />} /> 
          </Route> 
          <Route path="/sign-in" element={<SignIn />} />
        </Routes>

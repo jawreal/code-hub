@@ -2,7 +2,6 @@ import { lazy, Suspense} from 'react';
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';
 const CodeEditor = lazy(() => import ('../../components/CodeEditor'));
-import StaticSidebar from '../../layouts/StaticSidebar';
 
 const CreatePost = () => {
   return (
@@ -23,7 +22,6 @@ const CreatePost = () => {
        </form>
       </main>
       <section className="md:flex-[1] fixed bottom-0 md:static z-10 w-full md:w-auto md:border-r border-zinc-300 dark:border-zinc-900 md:p-2 md:h-screen order-1 bg-inherit md:max-w-64">
-         <StaticSidebar />
       </section>
     </div>
     );
