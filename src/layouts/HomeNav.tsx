@@ -13,7 +13,7 @@ const HomeNav = ({ items }: NAV_PROPS) => {
   const [showDropdown, setDropdown] = useState<boolean>(false);
   
   return (
-    <ul className="dark:border-zinc-900 md:static md:z-auto flex items-center w-full md:justify-center bg-inherit border-b border-zinc-200 dark:border-zinc-900 relative p-2 md:static">
+    <ul className="dark:border-zinc-900 md:static md:z-auto flex md:flex-col items-center md:items-start w-full bg-inherit border-b md:border-none border-zinc-200 dark:border-zinc-900 relative p-2 md:static">
       {items.map((item: itemsType, index: number) => {
         const currPath = ActivePath(item.name);
         return (
