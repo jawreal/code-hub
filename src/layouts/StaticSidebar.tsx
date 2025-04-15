@@ -3,6 +3,7 @@ import { itemsType } from '../helpers/itemsType';
 import { ActivePath } from '../helpers/pathChecker';
 import { Link } from 'react-router-dom';
 import { Home, Trophy, HelpCircle, Tags, Plus } from "lucide-react";
+import LogoHeader from '../components/LogoHeader';
 
 const StaticSidebar = () => {
   const menuItems: itemsType[] = [
@@ -14,6 +15,9 @@ const StaticSidebar = () => {
   ]; 
   return (
     <aside className="w-full flex flex-col bg-inherit">
+      <div className="w-full flex flex-row items-center space-x-1 pl-3 mb-1">
+        <LogoHeader page={true}/>
+      </div>
       <ul className="flex flex-col pt-1 md:pt-0 md:border-none bg-inherit">
         {menuItems?.map((item: itemsType) => {
           const newPath = item.name.replaceAll(" ", "-");
