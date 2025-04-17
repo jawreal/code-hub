@@ -18,7 +18,7 @@ const Challenge = () => {
          <SidebarContent items={items} collapse={true} /> 
       </section>
       <main className="flex-[2] order-2  h-full pb-12 bg-inherit flex flex-col"> 
-         <div className="h-full flex flex-col w-full">
+         <div className="h-full flex flex-col w-full gap-y-3 p-3">
              <UserPost width="w-full md:pl-5 md:border-l-none px-3 max-w-[60rem]"/>
              <UserPost width="w-full md:pl-5 md:border-l-none px-2 max-w-[60rem]"/>
              <UserPost width="w-full md:pl-5 md:border-l-none px-2 max-w-[60rem]"/>

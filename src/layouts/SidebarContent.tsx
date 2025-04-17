@@ -4,6 +4,7 @@ import { ActivePath } from '../helpers/pathChecker';
 import { Link } from 'react-router-dom';
 import { Ellipsis } from "lucide-react";
 import LogoHeader from '../components/LogoHeader';
+import Dropdown from '../components/Dropdown';
 import Button from '../components/Button';
 
 interface ITEMS_TYPE {
@@ -29,25 +30,14 @@ const SidebarContent = ({ items, collapse }: ITEMS_TYPE) => {
               <span>{item.name}</span>
              </Link>
           </li>)})} 
-      {collapse && <li className="absolute right-4 md:static block md:hidden" key="ellipsis">
+      {collapse && <li className="absolute right-5 md:static block md:hidden" key="ellipsis">
         <div className="relative">
           <Button 
-            className="p-2 rounded-md border border-zinc-200 dark:border-zinc-800 p-2 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40" 
+            className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40" 
             icon={<Ellipsis size={22} />} 
             onClick={() => setDropdown(prevDp => !prevDp)}
           />
-           {showDropdown && (
-            <ul className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 p-2 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
-              {items.slice(2).map((dpItem: itemsType) => (
-                <li key={dpItem.name} className="w-full p-2 dark:text-zinc-200">
-                  <Link className="w-full flex items-center gap-x-2" to={`${dpItem.name.toLowerCase()}`}>
-                 {dpItem.icon && <span className="dark:text-zinc-200 text-zinc-400">{dpItem.icon}</span>}
-                  <span className="dark:text-zinc-200 whitespace-nowrap text-sm">{dpItem.name}</span>
-                  </Link>
-                </li>
-              ))} 
-            </ul>
-          )} 
+          <Dropdown showDropdown={showDropdown} setDropdown={setDropdown} items={items} />
          </div>
        </li>} 
       </ul>
