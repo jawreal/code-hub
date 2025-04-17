@@ -18,7 +18,7 @@ const SidebarContent = ({ items, collapse }: ITEMS_TYPE) => {
       {!collapse && <div className="w-full flex flex-row items-center space-x-1 pl-3 mb-1">
         <LogoHeader page={true}/>
       </div>} 
-      <ul className={`flex bg-inherit ${collapse ? "flex-row md:flex-col items-center md:items-start w-full bg-inherit border-b md:border-none border-zinc-200 dark:border-zinc-900 relative py-2 pl-3 md:static space-x-5 md:space-x-0" : "flex-col pt-1 md:pt-0 md:border-none"}`}>
+      <ul className={`flex bg-inherit ${collapse ? "flex-row md:flex-col items-center md:items-start w-full bg-inherit border-b md:border-none border-zinc-200 dark:border-zinc-800 relative py-2 pl-3 md:static space-x-5 md:space-x-0" : "flex-col pt-1 md:pt-0 md:border-none"}`}>
         {items?.map((item: itemsType, index: number) => {
           const newPath = item.name.replaceAll(" ", "-");
           const currPath = ActivePath(newPath);
@@ -32,12 +32,12 @@ const SidebarContent = ({ items, collapse }: ITEMS_TYPE) => {
       {collapse && <li className="absolute right-4 md:static block md:hidden" key="ellipsis">
         <div className="relative">
           <Button 
-            className="p-2 rounded-md border border-zinc-200 dark:border-zinc-900 p-2 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40" 
+            className="p-2 rounded-md border border-zinc-200 dark:border-zinc-800 p-2 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40" 
             icon={<Ellipsis size={22} />} 
             onClick={() => setDropdown(prevDp => !prevDp)}
           />
            {showDropdown && (
-            <ul className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-900 p-2 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-900 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
+            <ul className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 p-2 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
               {items.slice(2).map((dpItem: itemsType) => (
                 <li key={dpItem.name} className="w-full p-2 dark:text-zinc-200">
                   <Link className="w-full flex items-center gap-x-2" to={`${dpItem.name.toLowerCase()}`}>
