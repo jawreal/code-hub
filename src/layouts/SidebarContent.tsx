@@ -22,9 +22,9 @@ const SidebarContent = ({ items, collapse }: ITEMS_TYPE) => {
         {items?.map((item: itemsType, index: number) => {
           const newPath = item.name.replaceAll(" ", "-");
           const currPath = ActivePath(newPath);
-          return (<li key={item.name} className={`flex flex-row items-center space-x-1 ${(collapse && index < 2) ? "block" : (!collapse ? "block w-full" : "hidden md:block")}`}>
-             {currPath && <span className={`rounded-md bg-emerald-600 ${collapse ? "h-1 w-full order-2" : "w-1 h-6"}`} ></span>}
-             <Link to={`${!collapse ? "/" : ""}${newPath.toLowerCase()}`} className={`${currPath && !collapse ? "dark:bg-zinc-800 bg-zinc-100 font-medium" : (!currPath && !collapse ? "pl-4" : "")} text-sm dark:text-zinc-200 w-full py-1 px-2 rounded-md whitespace-nowrap flex gap-x-2`}>
+          return (<li key={item.name} className={`flex flex-row items-center space-x-1 ${(collapse && index < 2) ? "block md:w-full" : (!collapse ? "block w-full" : "hidden md:block w-full")}`}>
+             {currPath && <span className={`rounded-md bg-emerald-600 w-1 h-6 ${collapse ? "hidden md:inline" : ""}`} ></span>}
+             <Link to={`${!collapse ? "/" : ""}${newPath.toLowerCase()}`} className={`${(currPath && !collapse) ? "dark:bg-zinc-800 bg-zinc-100 font-medium" : ((currPath && collapse) ? "dark:bg-zinc-900 bg-zinc-100 font-medium" : "pl-4")} text-sm dark:text-zinc-200 w-full py-1 px-2 rounded-md whitespace-nowrap flex gap-x-2`}>
                {item.icon && <span className="text-zinc-400" >{item.icon}</span>}
               <span>{item.name}</span>
              </Link>
