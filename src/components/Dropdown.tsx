@@ -1,4 +1,5 @@
 import React, { memo, useRef, useEffect } from 'react';
+import { ActivePath } from '../helpers/pathChecker';
 import { Link } from 'react-router-dom';
 import { itemsType } from '../helpers/itemsType';
 interface DP_TYPE {
@@ -23,15 +24,16 @@ const Dropdown = ({ showDropdown, setDropdown, items }: DP_TYPE) => {
   }, [])
   return (
      showDropdown && (
-       <ul ref={outsideRef} className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 p-2 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
-            {items.slice(2).map((dpItem: itemsType) => (
-                <li key={dpItem.name} className="w-full p-2 dark:text-zinc-200">
-                  <Link className="w-full flex items-center gap-x-2" to={`${dpItem.name.toLowerCase()}`}>
-                 {dpItem.icon && <span className="dark:text-zinc-200 text-zinc-400">{dpItem.icon}</span>}
-                  <span className="dark:text-zinc-200 whitespace-nowrap text-sm">{dpItem.name}</span>
-                  </Link>
-                </li>
-              ))} 
+       <ul ref={outsideRef} className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
+         {items?.slice(2).map((item: itemsType) => {
+          const newPath = item.name.replaceAll(" ", "-");
+          const currPath = ActivePath(newPath);
+          return (<li key={item.name} className="flex flex-row items-center w-full">
+             <Link to={`${newPath.toLowerCase()}`} className={`${currPath ? "dark:bg-zinc-900 bg-zinc-200 font-medium" : ""} text-sm dark:text-zinc-200 py-3 px-4 w-full whitespace-nowrap flex gap-x-2`}>
+               {item.icon && <span className="text-zinc-400" >{item.icon}</span>}
+              <span>{item.name}</span>
+             </Link>
+          </li>)})}  
          </ul>
        )
     );
