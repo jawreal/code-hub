@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import PostSkeleton from '../../components/PostSkeleton';
 const UserPost = lazy(() => import('../../components/UserPost'));
 
 const Home = () => {
@@ -6,7 +7,7 @@ const Home = () => {
     <div className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row" >
       <main className="md:flex-[2] order-2  h-full pb-8">
          <div className="h-full flex flex-col gap-y-3 p-3">
-            <Suspense fallback={<div>loading...</div>}>
+            <Suspense fallback={<PostSkeleton />}>
               <UserPost width="w-full md:pl-5"/>
               <UserPost width="w-full md:pl-5"/>
               <UserPost width="w-full md:pl-5"/>

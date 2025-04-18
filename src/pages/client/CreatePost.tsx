@@ -21,8 +21,6 @@ const CreatePost = () => {
          </div>
        </form>
       </main>
-      <section className="md:flex-[1] fixed bottom-0 md:static z-10 w-full md:w-auto md:border-r border-zinc-300 dark:border-zinc-900 md:p-2 md:h-screen order-1 bg-inherit md:max-w-64">
-      </section>
     </div>
     );
 };

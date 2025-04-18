@@ -1,4 +1,6 @@
-import UserPost from '../../components/UserPost';
+import { lazy, Suspense } from 'react';
+import PostSkeleton from '../../components/PostSkeleton';
+const UserPost = lazy(() => import('../../components/UserPost'));
 import { itemsType } from '../../helpers/itemsType';
 import SidebarContent from '../../layouts/SidebarContent';
 import { Sparkles, Zap, HelpCircle, MessageSquareMore, Star } from "lucide-react";
@@ -19,9 +21,11 @@ const Challenge = () => {
       </section>
       <main className="flex-[2] order-2  h-full pb-12 bg-inherit flex flex-col"> 
          <div className="h-full flex flex-col w-full gap-y-3 p-3">
-             <UserPost width="w-full md:pl-5 md:border-l-none px-3 max-w-[60rem]"/>
-             <UserPost width="w-full md:pl-5 md:border-l-none px-2 max-w-[60rem]"/>
-             <UserPost width="w-full md:pl-5 md:border-l-none px-2 max-w-[60rem]"/>
+          <Suspense fallback={<PostSkeleton />}>
+             <UserPost width="w-full md:border-l-none px-2 max-w-[60rem]"/>
+             <UserPost width="w-full md:border-l-none px-2 max-w-[60rem]"/>
+             <UserPost width="w-full md:border-l-none px-2 max-w-[60rem]"/> 
+            </Suspense>
          </div>
       </main>      
     </div>
