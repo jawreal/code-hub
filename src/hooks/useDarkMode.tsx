@@ -7,10 +7,12 @@ const useDarkMode = () => {
 
   useEffect(() => {
     if (darkMode) {
-      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute('data-color-mode', 'dark');
+      document.documentElement.classList. add('dark');
       localStorage.setItem("theme", "dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.setAttribute('data-color-mode', 'light');
+      document.documentElement.classList. remove('dark');
       localStorage.setItem("theme", "light");
     }
   }, [darkMode]);
