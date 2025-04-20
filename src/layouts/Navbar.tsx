@@ -4,7 +4,8 @@ import useDarkMode from "../hooks/useDarkMode";
 import { RootState, AppDispatch } from '../features/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleForm } from '../features/redux/SwitchFormSlice';
-import { ActivePath } from '../helpers/pathChecker';
+import { useActivePath } from '../helpers/pathChecker';
+import { useLocation } from 'react-router-dom';
 import Button from "../components/Button";
 import Sidebar from "./Sidebar";
 import SidebarContent from "./SidebarContent";
@@ -23,12 +24,13 @@ const Navbar = () => {
   { name: "Questions", icon: <HelpCircle size={22} /> },
   { name: "Tags", icon: <Tags size={22} /> },
   ]; 
+  const location = useLocation();
   const [showSidebar, setSidebar] = useState<boolean>(false);
   const [showModal, setModal] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const { isSignUp } = useSelector((state: RootState) => state.switchForm);
   const [darkMode, setDarkMode] = useDarkMode();
-  const SignInPage = ActivePath('sign-in');
+  const SignInPage = useActivePath(location.pathname, 'sign-in');
 
   return (
     <nav className={`bg-inherit dark:bg-zinc-950 py-2 flex flex-row px-2 md:px-0 justify-center items-center ${!SignInPage ? "border-b dark:border-zinc-800 border-zinc-200" : ""}`}>

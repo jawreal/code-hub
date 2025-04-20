@@ -23,7 +23,7 @@ const Button = ({ onClick, className, text, icon  }: BUTTON_TYPE) => {
       }
       }>
       {icon && <span>{icon}</span>}
-      {text && <label>{text}</label>}
+      {text && <label id={text}>{text}</label>}
       </button>
     );
 };
