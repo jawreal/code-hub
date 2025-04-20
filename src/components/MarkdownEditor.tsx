@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 
 const MarkdownEditor = () => {
   const [value, setValue] = useState<string>('**Hello Markdown!**');
+  const handleChange = (value?: string) => {
+    if (value !== undefined) {
+      setValue(value);
+    }
+  };
 
   return (
     <div className="w-full h-[25rem] md:h-[40rem]">
@@ -10,7 +15,7 @@ const MarkdownEditor = () => {
         value={value} 
         preview="edit" 
         height="100%" 
-        onChange={setValue} 
+        onChange={handleChange} 
       />
     </div>
   );
