@@ -30,7 +30,7 @@ const Dropdown = ({ showDropdown, setDropdown, items }: DP_TYPE) => {
           const newPath = item.name.replaceAll(" ", "-");
           const currPath = useActivePath(location.pathname, newPath);
           return (<li key={item.name} className="flex flex-row items-center w-full">
-             <Link to={`${newPath.toLowerCase()}`} className={`${currPath ? "dark:bg-zinc-900 bg-zinc-200 font-medium" : ""} text-sm dark:text-zinc-200 py-3 px-4 w-full whitespace-nowrap flex gap-x-2`}>
+             <Link to={`/${newPath.toLowerCase()}`} className={`${currPath ? "dark:bg-zinc-900 bg-zinc-200 font-medium" : ""} text-sm dark:text-zinc-200 py-3 px-4 w-full whitespace-nowrap flex gap-x-2`}>
                {item.icon && <span className="text-zinc-400" >{item.icon}</span>}
               <span>{item.name}</span>
              </Link>

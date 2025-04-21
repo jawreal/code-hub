@@ -1,8 +1,6 @@
-import { lazy, Suspense} from 'react';
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';
-import MarkdownSkeleton from '../../components/MarkdownSkeleton'
-const MarkdownEditor = lazy(() => import ('../../components/MarkdownEditor'));
+import MarkdownEditor from '../../components/MarkdownEditor';
 
 const CreatePost = () => {
   return (
@@ -23,9 +21,7 @@ const CreatePost = () => {
              <label className="dark:text-zinc-200 font-medium">Body</label>
              <small className="text-zinc-500">ask your programming question or describe the issue you're trying to solve.</small>
            </div>
-           <Suspense fallback={<MarkdownSkeleton />}>
-             <MarkdownEditor />
-           </Suspense> 
+           <MarkdownEditor />
            <Button className="rounded-md font-medium p-2 bg-emerald-600 dark:bg-emerald-400/25 dark:border dark:border-emerald-50/20 text-emerald-50 self-start mt-2" text="add tags" />
          </div>
        </form>

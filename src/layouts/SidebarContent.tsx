@@ -27,7 +27,7 @@ const SidebarContent = ({ items, collapse }: ITEMS_TYPE) => {
           const currPath = useActivePath(location.pathname, newPath);
           return (<li key={item.name} className={`${(collapse && index < 2) ? "flex md:w-full" : (!collapse ? "flex w-full" : "hidden md:flex w-full")} flex-row items-center space-x-1`}>
              {currPath && <span className={`rounded-md bg-emerald-600 w-1 h-6 ${collapse ? "hidden md:inline" : ""}`} ></span>}
-             <Link to={`/${newPath.toLowerCase()}`} className={`${(currPath && !collapse) ? "dark:bg-zinc-800 bg-zinc-100 font-medium px-2" : ((currPath && collapse) ? "dark:bg-zinc-900 bg-zinc-100 font-medium py-2 md:py-1 px-2" : "pl-4")} py-1 text-sm dark:text-zinc-200 w-full rounded-md whitespace-nowrap flex gap-x-2`}>
+             <Link to={`${newPath.toLowerCase()}`} className={`${(currPath && !collapse) ? "dark:bg-zinc-800 bg-zinc-100 font-medium px-2" : ((currPath && collapse) ? "dark:bg-zinc-900 bg-zinc-100 font-medium py-2 md:py-1 px-2" : "pl-4")} py-1 text-sm dark:text-zinc-200 w-full rounded-md whitespace-nowrap flex gap-x-2`}>
                {item.icon && <span className="text-zinc-400" >{item.icon}</span>}
               <span>{item.name}</span>
              </Link>

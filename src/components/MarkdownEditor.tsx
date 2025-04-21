@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import MDEditor from '@uiw/react-md-editor';
+import { useState, lazy, Suspense } from 'react';
+const MDEditor = lazy(() => import('@uiw/react-md-editor'));
+import MarkdownSkeleton from './MarkdownSkeleton';
 
 const MarkdownEditor = () => {
   const [value, setValue] = useState<string>('**Hello Markdown!**');
@@ -11,12 +12,13 @@ const MarkdownEditor = () => {
 
   return (
     <div className="w-full h-[25rem] md:h-[40rem]">
-      <MDEditor
-        value={value} 
-        preview="edit" 
-        height="100%" 
-        onChange={handleChange} 
-      />
+     <Suspense fallback={<MarkdownSkeleton />}>
+       <MDEditor
+        value={value}
+        height="100%"
+        preview="edit"
+        onChange={handleChange} />
+     </Suspense>
     </div>
   );
 };
