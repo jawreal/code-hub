@@ -14,7 +14,7 @@ import Modal from "../components/Modal";
 import SearchContent from "../components/SearchContent";
 import LogoHeader from '../components/LogoHeader';
 import { itemsType } from '../helpers/itemsType';
-import { Home, Trophy, HelpCircle, Tags, Plus, Search } from "lucide-react";
+import { Home, Trophy, HelpCircle, Tags, Plus, Search, Bell } from "lucide-react";
 
 const Navbar = () => {
   const menuItems: itemsType[] = [
@@ -33,7 +33,7 @@ const Navbar = () => {
   const SignInPage = useActivePath(location.pathname, 'sign-in');
 
   return (
-    <nav className={`bg-inherit dark:bg-zinc-950 py-2 flex flex-row px-2 md:px-0 justify-center items-center ${!SignInPage ? "border-b dark:border-zinc-800 border-zinc-200" : ""}`}>
+    <nav className={`bg-inherit dark:bg-zinc-950 py-2 flex flex-row px-2 md:px-0 justify-center items-center ${!SignInPage ? "border-b dark:border-zinc-800 border-zinc-200" : ""} sticky top-0 z-50`}>
       <div className="flex items-center mr-auto md:ml-5 ml-3 space-x-2">
         {!SignInPage && <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40" icon={<AlignJustify size={22} />} onClick={() => setSidebar(true)}/>}
         <LogoHeader page={SignInPage} />
@@ -43,21 +43,24 @@ const Navbar = () => {
           <SidebarContent items={menuItems} />
         </Sidebar>
       </BackdropBg>} 
-      {!SignInPage && <div className="w-full flex justify-end md:justify-center items-center">
-         <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 md:w-80" icon={<Search className="w-6 h-6 md:w-4 md:h-4" />} onClick={() => setModal(true)}/>
+      {!SignInPage && <div className="w-full flex justify-end items-center">
+         <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40" icon={<Search size={22} />} onClick={() => setModal(true)}/>
+        <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 ml-2" icon={<Bell size={22} />}/>
          <BackdropBg show={showModal} setBackdrop={setModal} position="items-start">
             <Modal openModal={showModal} setModal={setModal} showCloseBtn={false}>
               <SearchContent />
             </Modal>
          </BackdropBg>
       </div>}
-      <div className="flex flex-row ml-auto gap-x-2 md:mr-10">
+      <div className={`flex flex-row ml-auto items-center ${SignInPage ? "md:mr-10" : "mr-3"}`}>
         {SignInPage && <Button className="bg-emerald-600 dark:bg-emerald-400/25 dark:border dark:border-emerald-50/20 rounded-md py-2 px-4 text-emerald-50 font-medium w-24" text={isSignUp ? "Sign In" : "Sign Up"} onClick={() => dispatch(handleForm({ isSignUp: !isSignUp}))}/>} 
         <Button
-        className="p-2 text-dark dark:text-slate-200 mr-2"
-        icon={darkMode ? <Moon className="w-6 h-6 text-slate-200" /> : <Sun className="w-6 h-6 text-black" />}
+        className={`${!SignInPage ? "p-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-200/30 dark:bg-zinc-900/40 mx-2" : "p-2"} text-zinc-400 dark:text-zinc-200`}
+        icon={darkMode ? <Moon size={22} /> : <Sun size={22} />}
         onClick={() => setDarkMode((prev) => !prev)}
       />
+      {!SignInPage && <Button
+        className="p-2 w-7 h-7 rounded-full bg-zinc-200" />}
       </div>
     </nav>
   );

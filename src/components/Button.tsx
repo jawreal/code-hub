@@ -5,25 +5,24 @@ interface BUTTON_TYPE {
   className: string;
   text?: string;
   icon?: React.ReactNode;
+  type?: string;
 }
 
 
-const Button = ({ onClick, className, text, icon  }: BUTTON_TYPE) => {
+const Button = ({ onClick, className, text, icon, type }: BUTTON_TYPE) => {
   return (
-      <button className={className} onClick={() => {
+      <button type={type ?? "button"} className={`cursor-pointer ${className}`} onClick={() => {
         if (onClick && typeof onClick === "function") {
-          // If onClick is a state setter (setProf), call it with false
           if (onClick.length === 1) {
             (onClick as React.Dispatch<React.SetStateAction<boolean>>)(false);
           } else {
-            // If onClick is an arrow function (() => setProf(false)), just call it
             (onClick as () => void)();
           }
         }
       }
       }>
       {icon && <span>{icon}</span>}
-      {text && <label id={text}>{text}</label>}
+      {text && <span>{text}</span>}
       </button>
     );
 };

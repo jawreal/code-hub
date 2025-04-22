@@ -14,7 +14,8 @@ const Home = () => {
             </Suspense>
          </div>
       </main>
-      <section className="md:flex-[1] fixed bottom-0 md:static z-10 w-full md:w-auto md:border-r border-zinc-300 dark:border-zinc-900 md:p-2 md:h-screen order-1 bg-inherit md:max-w-64">
+      <section className="md:flex-[1] md:w-auto md:border-r border-zinc-200 dark:border-zinc-800 p-2 min-h-screen order-1 bg-inherit max-w-64 hidden md:flex flex-col items-center text-center"> 
+         <span className="dark:text-zinc-200 font-medium">Notification</span>
       </section>
     </div>
     );

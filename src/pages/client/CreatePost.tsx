@@ -10,7 +10,7 @@ const CreatePost = () => {
          <div className="flex flex-col w-full space-y-2 md:space-y-4">
            <div className="flex flex-col w-full space-y-2">
              <div className="flex flex-col w-full">
-               <label className="mb-0 dark:text-zinc-200 font-medium">Title</label>
+               <span className="mb-0 dark:text-zinc-200 font-medium">Title</span>
                <small className="text-zinc-500">enter a descriptive title for your post to help readers understand what it's about.</small>
              </div>
              <div className="w-full">
@@ -18,7 +18,7 @@ const CreatePost = () => {
              </div>
            </div>
            <div className="flex flex-col w-full"> 
-             <label className="dark:text-zinc-200 font-medium">Body</label>
+             <span className="dark:text-zinc-200 font-medium">Body</span>
              <small className="text-zinc-500">ask your programming question or describe the issue you're trying to solve.</small>
            </div>
            <MarkdownEditor />
