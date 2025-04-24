@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
 
 interface BUTTON_TYPE {
-  onClick?: React.Dispatch<React.SetStateAction<boolean>> | (() => void); // Handles both cases
+  onClick?: React.Dispatch<React.SetStateAction<boolean>> | (() => void); 
   className: string;
   text?: string;
   icon?: React.ReactNode;
-  type?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 
