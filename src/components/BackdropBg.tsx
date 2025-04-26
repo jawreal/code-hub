@@ -14,7 +14,7 @@ const BackdropBg = ({ show, setBackdrop, position , children }: BACKDROP_TYPE) =
     if(target === e.currentTarget || target.closest('a')){
       setBackdrop(false) 
     }
-  }, [setBackdrop]);
+  }, []);
   
   return (
     <div onClick={toggleBackdrop} className={`fixed pt-2 flex z-50 justify-center ${position ?? "items-center"} inset-0 transition-all ${show ? 'visible bg-black/20' : 'invisible'} `}>

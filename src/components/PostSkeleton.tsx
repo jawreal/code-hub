@@ -9,7 +9,7 @@ const PostSkeleton = () => {
       </div>
     </div>
     <div className="px-3 w-full flex flex-col space-y-2">
-      <div className="bg-cyan-300/30 dark:bg-cyan-700/30 h-5 w-24 rounded-full mt-2"></div>
+      <div className="bg-zinc-300 dark:bg-zinc-600/30 h-5 w-24 rounded-full mt-2"></div>
       <div className="h-5 bg-zinc-300 dark:bg-zinc-600 rounded w-3/4"></div>
       <div className="space-y-1">
         <div className="h-3 bg-zinc-200 dark:bg-zinc-700 rounded w-full"></div>

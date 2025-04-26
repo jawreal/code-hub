@@ -11,9 +11,8 @@ const NavbarSkeleton = () => {
         {!SignInPage && (
           <div className="w-8 h-8 rounded-md animate-pulse bg-zinc-200 dark:bg-zinc-800"></div>
         )}
-        <div className="h-8 w-32 rounded-md animate-pulse bg-zinc-200 dark:bg-zinc-800"></div>
+        <div className={`bg-zinc h-8 ${SignInPage ? "w-32" : "w-8"} rounded-md animate-pulse bg-zinc-200 dark:bg-zinc-800`} ></div>
       </div>
-     
       {!SignInPage && (
         <div className="w-full flex justify-end items-center">
           <div className="w-8 h-8 rounded-md animate-pulse bg-zinc-200 dark:bg-zinc-800"></div>

@@ -23,7 +23,7 @@ const SidebarSkeleton = ({ collapse = false, itemCount = 5 }: SkeletonProps) => 
             ? "flex md:w-full" 
             : (!collapse ? "flex w-full" : "hidden md:flex w-full")} flex-row items-center md:pl-2 py-1`}>
             <div className={`py-1 px-2 rounded-md w-full flex gap-x-2`}>
-            <div className="h-4 w-4 md:h-6 md:w-6 md:w-8 md:h-8 rounded-md bg-zinc-200 dark:bg-zinc-800"></div>
+            <div className="h-5 w-5 md:w-8 md:h-8 rounded-md bg-zinc-200 dark:bg-zinc-800"></div>
               <div className="h-5 md:h-8 w-16 md:w-full rounded-md bg-zinc-200 dark:bg-zinc-800"></div>
             </div>
           </li>
