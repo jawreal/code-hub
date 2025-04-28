@@ -1,22 +1,23 @@
 import { ReactNode, Dispatch, SetStateAction, useCallback } from 'react'; 
+import { TOGGLE_STATE } from '../helpers/reusableTypes';
 import Button from './Button';
 import { X } from 'lucide-react';
 
-interface MODAL_TYPE  {
+interface MODAL_TYPE{
   openModal: boolean;
-  setModal: Dispatch<SetStateAction<boolean>>;
+  setModal: Dispatch<SetStateAction<TOGGLE_STATE>>;
   children?: ReactNode;
   showCloseBtn?: boolean;
 }
 
-const Modal = ({ openModal, setModal, children, showCloseBtn }: MODAL_TYPE ) => {
+const Modal = ({ openModal, setModal, children, showCloseBtn }: MODAL_TYPE) => {
   
   const propagate = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
   }, []);
   
   const closeModal = useCallback(() => {
-    setModal(false);
+    setModal((prevState: TOGGLE_STATE) => ({ ...prevState, modal: false }))
   }, []);
   
   return(

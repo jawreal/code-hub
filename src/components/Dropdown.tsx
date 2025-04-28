@@ -2,12 +2,14 @@ import React, { memo, useRef, useEffect } from 'react';
 import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { itemsType } from '../helpers/itemsType';
+import { ITEMS_TYPE } from '../helpers/reusableTypes';
+
 interface DP_TYPE {
   showDropdown: boolean;
-  items: itemsType[];
+  items: ITEMS_TYPE[];
   setDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 
 const Dropdown = ({ showDropdown, setDropdown, items }: DP_TYPE) => {
   const location = useLocation();
@@ -26,7 +28,7 @@ const Dropdown = ({ showDropdown, setDropdown, items }: DP_TYPE) => {
   if(!showDropdown) return null;
   return (
      <ul ref={outsideRef} className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
-         {items?.slice(2).map((item: itemsType) => {
+         {items?.slice(2).map((item: ITEMS_TYPE) => {
           const newPath = item.name.replaceAll(" ", "-");
           const currPath = useActivePath(location.pathname, newPath);
           return (<li key={item.name} className="flex flex-row items-center w-full">
