@@ -6,6 +6,7 @@ export interface ITEMS_TYPE {
 }
 
 export interface TOGGLE_STATE {
+  dropdown?: boolean;
   sidebar?: boolean;
   modal?: boolean;
 }

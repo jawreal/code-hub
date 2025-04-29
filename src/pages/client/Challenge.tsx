@@ -3,24 +3,15 @@ import PostSkeleton from '../../components/PostSkeleton';
 import SidebarSkeleton from '../../components/SidebarSkeleton';
 const SidebarContent = lazy(() => import('../../layouts/SidebarContent'));
 const UserPost = lazy(() => import('../../components/UserPost'));
-import { ITEMS_TYPE } from '../../helpers/reusableTypes';
-import { LayoutGrid, BookOpen, Layers, Award, Calendar } from 'lucide-react';
+import { challengeItems } from '../../data/sidebarData';
 
-const items: ITEMS_TYPE[] = [
-  { name: "Overview", icon: <LayoutGrid size={22} /> },
-  { name: "Beginner", icon: <BookOpen size={22} /> },
-  { name: "Intermediate", icon: <Layers size={22} /> },
-  { name: "Advanced", icon: <Award size={22} /> },
-  { name: "Weekly", icon: <Calendar size={22} /> },
-  ]; 
 
 const Challenge = () => {
-   
   return (
     <div className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row" >
       <section className="md:flex-[1] w-full md:w-auto md:border-r border-zinc-200 dark:border-zinc-800 md:p-2 md:h-screen order-1 bg-inherit md:max-w-64"> 
-         <Suspense fallback={<SidebarSkeleton collapse={true} itemCount={items?.length} />}>
-             <SidebarContent items={items} collapse={true} />
+         <Suspense fallback={<SidebarSkeleton collapse={true} itemCount={challengeItems?.length} />}>
+             <SidebarContent items={challengeItems} collapse={true} />
          </Suspense>
       </section>
       <main className="flex-[2] order-2  h-full pb-12 bg-inherit flex flex-col"> 

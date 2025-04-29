@@ -1,6 +1,6 @@
-import { useState, memo } from 'react';
+import { useState, memo, useCallback } from 'react';
 import { useLocation } from "react-router-dom";
-import { ITEMS_TYPE } from '../helpers/reusableTypes';
+import { ITEMS_TYPE, TOGGLE_STATE } from '../helpers/reusableTypes';
 import { useActivePath } from '../helpers/pathChecker';
 import { Link } from 'react-router-dom';
 import { Ellipsis } from "lucide-react";
@@ -15,7 +15,15 @@ interface PROPS_TYPE {
 
 const SidebarContent = ({ items, collapse }: PROPS_TYPE) => {
   const location = useLocation();
-  const [showDropdown, setDropdown] = useState<boolean>(false);
+  const [show, setDropdown] = useState<TOGGLE_STATE>({
+    dropdown: false, 
+  });
+  
+  const onClose = useCallback(() => {
+    setDropdown((prev: TOGGLE_STATE) => ({ ...prev, dropdown: !prev.dropdown}));
+  }, [])
+  
+  
   return (
     <aside className="w-full flex flex-col bg-inherit">
       {!collapse && <div className="w-full flex flex-row items-center space-x-1 pl-3 mb-1">
@@ -37,9 +45,9 @@ const SidebarContent = ({ items, collapse }: PROPS_TYPE) => {
           <Button 
             className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40" 
             icon={<Ellipsis size={22} />} 
-            onClick={() => setDropdown(prevDp => !prevDp)}
+            onClick={onClose}
           />
-          <Dropdown showDropdown={showDropdown} setDropdown={setDropdown} items={items} />
+          {show?.dropdown && <Dropdown  setDropdown={setDropdown} items={items} isSlice={true}/>}
          </div>
        </li>} 
       </ul>

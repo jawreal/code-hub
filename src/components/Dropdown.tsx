@@ -1,34 +1,37 @@
-import React, { memo, useRef, useEffect } from 'react';
+import React, { memo, useRef, useEffect, useMemo } from 'react';
 import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { ITEMS_TYPE } from '../helpers/reusableTypes';
+import { ITEMS_TYPE, TOGGLE_STATE } from '../helpers/reusableTypes';
 
 interface DP_TYPE {
-  showDropdown: boolean;
   items: ITEMS_TYPE[];
-  setDropdown: React.Dispatch<React.SetStateAction<boolean>>;
+  setDropdown: React.Dispatch<React.SetStateAction<TOGGLE_STATE>>;
+  isSlice: boolean;
 }
 
 
-const Dropdown = ({ showDropdown, setDropdown, items }: DP_TYPE) => {
+const Dropdown = ({ setDropdown, items, isSlice }: DP_TYPE) => {
   const location = useLocation();
   const outsideRef = useRef<HTMLUListElement | null>(null);
+  const memoizedItems = useMemo(() => {
+    return isSlice ? items.slice(2) : items;
+  }, [isSlice])
   
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (outsideRef.current && !outsideRef.current.contains(event.target as Node)){
-        setDropdown(false)
+        setDropdown((prevState: TOGGLE_STATE) => ({...prevState, dropdown: false }));
       };
     }; 
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
   
-  if(!showDropdown) return null;
+  //if(!showDropdown) return null;
   return (
-     <ul ref={outsideRef} className="absolute flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
-         {items?.slice(2).map((item: ITEMS_TYPE) => {
+     <ul ref={outsideRef} className="absolute min-w-36 flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 z-10 rounded-md bg-zinc-100 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
+         {memoizedItems?.map((item: ITEMS_TYPE) => {
           const newPath = item.name.replaceAll(" ", "-");
           const currPath = useActivePath(location.pathname, newPath);
           return (<li key={item.name} className="flex flex-row items-center w-full">
