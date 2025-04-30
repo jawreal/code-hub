@@ -10,3 +10,10 @@ export interface TOGGLE_STATE {
   sidebar?: boolean;
   modal?: boolean;
 }
+
+export interface POSTDATA_TYPE{
+  post_type?: string | null;
+  title?: string;
+  body?: string;
+  tags?: string;
+}

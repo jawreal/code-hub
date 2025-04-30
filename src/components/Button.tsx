@@ -6,10 +6,11 @@ interface BUTTON_TYPE {
   text?: string;
   icon?: React.ReactNode;
   type?: "button" | "submit" | "reset";
+  children?: React.ReactNode;
 }
 
 
-const Button = ({ onClick, className, text, icon, type }: BUTTON_TYPE) => {
+const Button = ({ onClick, className, text, icon, type, children }: BUTTON_TYPE) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const handleClick = useCallback(() => {
     if (timeoutRef.current){
@@ -30,8 +31,9 @@ const Button = ({ onClick, className, text, icon, type }: BUTTON_TYPE) => {
   }, [onClick])
   return (
       <button type={type ?? "button"} className={`cursor-pointer ${className}`} onClick={handleClick}>
-      {icon && <span>{icon}</span>}
-      {text && <span>{text}</span>}
+      {(icon && !children) && <span>{icon}</span>}
+      {(text && !children) && <span>{text}</span>}
+      {children && children}
       </button>
     );
 };
