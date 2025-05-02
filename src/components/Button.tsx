@@ -11,7 +11,7 @@ interface BUTTON_TYPE {
 
 
 const Button = ({ onClick, className, text, icon, type, children }: BUTTON_TYPE) => {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleClick = useCallback(() => {
     if (timeoutRef.current){
       //already waiting 
