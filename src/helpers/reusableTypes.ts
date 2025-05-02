@@ -17,3 +17,8 @@ export interface POSTDATA_TYPE{
   body?: string;
   tags?: string;
 }
+
+export interface TAGS_TYPE {
+  name: string;
+  isActive: boolean;
+}

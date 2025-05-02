@@ -10,7 +10,7 @@ interface INPUTBOX_TYPE {
 
 const Inputbox = ({ placeholder, icon, type }: INPUTBOX_TYPE) => {
   const attributes: Partial<React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement>> = {
-    className: `dark:bg-zinc-900 bg-gray-100 border border-zinc-300 text-zinc-700 focus:ring-1 border-zinc-300 dark:border-zinc-600 focus:ring-emerald-500 focus:border-none dark:focus:ring-emerald-600 outline-none focus:border-none w-full p-2 rounded-md ${icon ? "pl-11" : ""} mb-0 dark:text-zinc-200`, 
+    className: `dark:bg-zinc-900 bg-gray-100 border border-zinc-300 text-zinc-700 focus:ring-1 border-zinc-300 dark:border-zinc-800 focus:ring-emerald-500 focus:border-none dark:focus:ring-emerald-600 outline-none focus:border-none w-full p-2 rounded-md ${icon ? "pl-11" : ""} mb-0 dark:text-zinc-200`, 
     placeholder: placeholder ?? "", 
   }
   
