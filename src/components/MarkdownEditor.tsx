@@ -31,7 +31,7 @@ const MarkdownEditor = ({ value, setPostData }: EDITOR_TYPE) => {
         body: newValue
       }));
     }
-  }, [setPostData]);
+  }, []);
   
   return (
     <div className="w-full h-[25rem] md:h-[40rem]">

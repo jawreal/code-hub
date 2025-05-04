@@ -5,12 +5,14 @@ import { TAGS_TYPE } from '../helpers/reusableTypes';
 
 interface TAGBTN_TYPE {
   items: TAGS_TYPE[];
-  setState: (tagName: string) => void;
+  setState?: (tagName: string) => void;
 }
 
 const TagButton = ({ items, setState }: TAGBTN_TYPE) => {
   const handleTagClick = useCallback((tagName: string) => {
-    setState(tagName);
+    if(setState) {
+      setState(tagName ?? "")
+    } 
   }, [])
   return (
     <>
