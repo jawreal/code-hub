@@ -1,5 +1,6 @@
 import { useState, useCallback, lazy, Suspense } from 'react';
 import { POSTDATA_TYPE, TOGGLE_STATE, TAGS_TYPE } from '../../helpers/reusableTypes';
+import Spinner from '../../assets/Spinner'
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';
 import TagButton from '../../components/TagButton';
@@ -89,7 +90,7 @@ const CreatePost = () => {
                 <Plus size={18} /></Button>
             <BackdropBg show={showModal.modal ?? false} setBackdrop={setModal} position="items-center" objKey="modal">
               <Modal openModal={showModal?.modal ?? false} setModal={setModal} showCloseBtn={true}>
-                 <Suspense fallback={<div>loading...</div>}>
+                 <Suspense fallback={<Spinner size="w-10 h-10" />}>
                   <TagContent setSelectedTag={setSelectedTag} closeModal={setModal}/>
                  </Suspense>
               </Modal>

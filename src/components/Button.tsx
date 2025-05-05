@@ -27,7 +27,7 @@ const Button = ({ onClick, className, text, icon, type, children }: BUTTON_TYPE)
       
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null; // Reset after 500ms
-    }, 100);
+    }, 500);
   }, [onClick])
   return (
       <button type={type ?? "button"} className={`cursor-pointer ${className}`} onClick={handleClick}>

@@ -1,26 +1,39 @@
 import { memo, useState, useRef, useCallback, ChangeEvent, KeyboardEvent, Dispatch, SetStateAction } from 'react';
 import Inputbox from './Inputbox';
 import TagButton from './TagButton';
-import { TAGS_TYPE } from '../helpers/reusableTypes';
+import { TAGS_TYPE, INLINEALERT_TYPE } from '../helpers/reusableTypes';
 
 interface NEWTAG_TYPE {
+  tags: TAGS_TYPE[];
   newTags: TAGS_TYPE[];
   setNewTags: Dispatch<SetStateAction<TAGS_TYPE[]>>;
+  isDisplayed: boolean;
+  setShowInlineAlert: Dispatch<SetStateAction<INLINEALERT_TYPE>>;
 }
 
-const AddNewTag = ({ newTags, setNewTags }: NEWTAG_TYPE) => {
+const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert }: NEWTAG_TYPE) => {
   const [input, setInput] = useState<string>('');
   const currentRef = useRef<HTMLInputElement | null>(null);
   
   const handleKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key === 'Backspace' && !input && newTags.length > 0) {
       setNewTags((prevTags: TAGS_TYPE[]) => prevTags.slice(0, -1));
+      if(isDisplayed) setShowInlineAlert((prevData) => ({...prevData,
+      isActive: false }));
     } 
-  }, [newTags]);
+    //I had to double it since it causes if just one
+    if(isDisplayed) setShowInlineAlert((prevData) => ({...prevData,
+      isActive: false }));  
+  }, [newTags, input]);
   
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.value as string;
     setInput(value);
+    const isExist = tags.find(tag => tag.name.toLowerCase() === input.toLowerCase());
+    if(isExist){
+      setShowInlineAlert({ type: "info", text: "This tag is already available. Simply click to choose it.", isActive: true }); 
+      return
+    }
     if (value.endsWith(' ') && value.slice(-1) === ' ') {
       const formattedString = value.trim().replace(/,/g, '');
       if (formattedString && !newTags.some(tag => tag.name === formattedString)) {
@@ -31,7 +44,7 @@ const AddNewTag = ({ newTags, setNewTags }: NEWTAG_TYPE) => {
       currentRef?.current?.focus();
     }
     
-  }, []);
+  }, [input]);
   
   const removeTag = useCallback((tagName: string) => {
     setNewTags((prevTags: TAGS_TYPE[]) => prevTags.filter((tag) => tag.name !== tagName))

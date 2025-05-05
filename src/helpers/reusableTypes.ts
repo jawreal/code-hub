@@ -22,3 +22,9 @@ export interface TAGS_TYPE {
   name: string;
   isActive: boolean;
 }
+
+export type INLINEALERT_TYPE = {
+  type: "info" | "success" | "warning" | "error" | string;
+  isActive?: boolean;
+  text?: string;
+}; 

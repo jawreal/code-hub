@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import { X } from 'lucide-react';
 import Button from './Button';
 import { TAGS_TYPE } from '../helpers/reusableTypes';
@@ -9,10 +9,15 @@ interface TAGBTN_TYPE {
 }
 
 const TagButton = ({ items, setState }: TAGBTN_TYPE) => {
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleTagClick = useCallback((tagName: string) => {
+    if (timeoutRef.current) return;
     if(setState) {
       setState(tagName ?? "")
-    } 
+    }
+    timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = null;
+    }, 500)
   }, [])
   return (
     <>
