@@ -14,9 +14,10 @@ interface NEWTAG_TYPE {
 const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert }: NEWTAG_TYPE) => {
   const [input, setInput] = useState<string>('');
   const currentRef = useRef<HTMLInputElement | null>(null);
-  
+  console.log("Rendered")
   const handleKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (e.key === 'Backspace' && !input && newTags.length > 0) {
+    if (e.key === 'Backspace' && newTags.length > 0) {
+      console.log(input)
       setNewTags((prevTags: TAGS_TYPE[]) => prevTags.slice(0, -1));
       if(isDisplayed) setShowInlineAlert((prevData) => ({...prevData,
       isActive: false }));
@@ -29,22 +30,21 @@ const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.value as string;
     setInput(value);
-    const isExist = tags.find(tag => tag.name.toLowerCase() === input.toLowerCase());
+    const isExist = tags.find(tag => tag.name.toLowerCase() === value.trim().toLowerCase());
     if(isExist){
       setShowInlineAlert({ type: "info", text: "This tag is already available. Simply click to choose it.", isActive: true }); 
       return
     }
-    if (value.endsWith(' ') && value.slice(-1) === ' ') {
+    if (value.endsWith(' ')) {
       const formattedString = value.trim().replace(/,/g, '');
       if (formattedString && !newTags.some(tag => tag.name === formattedString)) {
         const newTag = { name: formattedString, isActive: true };
         setNewTags((prevTags: TAGS_TYPE[]) => [...prevTags, newTag]);
       }
-      setInput('');
+      setInput("") 
       currentRef?.current?.focus();
     }
-    
-  }, [input]);
+  }, []);
   
   const removeTag = useCallback((tagName: string) => {
     setNewTags((prevTags: TAGS_TYPE[]) => prevTags.filter((tag) => tag.name !== tagName))
@@ -66,4 +66,11 @@ const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert 
   );
 };
 
-export default memo(AddNewTag);
+export default memo(AddNewTag, (prev, next) => {
+  return (
+    prev.newTags === next.newTags &&
+    prev.setNewTags === next.setNewTags &&
+    prev.isDisplayed === next.isDisplayed &&
+    prev.setShowInlineAlert === next.setShowInlineAlert
+  );
+});

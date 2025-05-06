@@ -42,7 +42,7 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
   const confirmTag = useCallback(() => {
     const filteredTag = tags.filter(tag => tag.isActive === true)
     if((filteredTag.length + newTags.length) > 5 ) {
-      setShowInlineAlert({ type: "warning", text: "You've reached the maximum number of tags (5). Please remove some to add new ones.", isActive: true }); 
+      setShowInlineAlert({ type: "error", text: "You've reached the maximum number of tags (5). Please remove some to add new ones.", isActive: true }); 
       return;
     }
     setSelectedTag(filteredTag); 
@@ -61,13 +61,12 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
   }, [tags, newTags]);
   
   const cancelTag = useCallback(() => {
-        setNewTags([]);
+    setNewTags([]);
     setTag((prevTags: TAGS_TYPE[]) => prevTags.map((tag: TAGS_TYPE) => ({
      ...tag,
      isActive: false
     })));
     if(showInlineAlert.isActive) setShowInlineAlert({ type: "", text: "", isActive: false}); 
-    closeModal({ modal: false });
     closeModal({ modal: false });
   }, [])
   return(

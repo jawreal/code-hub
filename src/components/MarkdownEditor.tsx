@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, memo, Dispatch, SetStateAction } from 'react';
+import { lazy, Suspense, useCallback, memo, Dispatch, SetStateAction, useMemo } from 'react';
 const MDEditor = lazy(() => import('@uiw/react-md-editor'));
 import { POSTDATA_TYPE } from '../helpers/reusableTypes';
 import MarkdownSkeleton from './MarkdownSkeleton';
@@ -13,12 +13,14 @@ const MemoizedMDEditor = memo(({ value, onChange }: {
   onChange: (value?: string) => void 
 }) => {
   return (
-    <MDEditor
+    useMemo(() => {
+     return <MDEditor
       value={value}
       height="100%"
       preview="edit"
       onChange={onChange}
     />
+    }, [value])
   );
 });
 
