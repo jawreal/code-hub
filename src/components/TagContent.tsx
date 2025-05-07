@@ -1,4 +1,4 @@
-import { memo, useCallback, useState, Dispatch, SetStateAction } from 'react';
+import { memo, useCallback, useState, Dispatch, SetStateAction, useMemo } from 'react';
 import Button from './Button';
 import TagButton from './TagButton';
 import AddNewTag from './AddNewTag';
@@ -30,6 +30,19 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
     { name: 'SQL', isActive: false },
     { name: 'Python', isActive: false },
     ]);
+  
+  const memoizedTags = useMemo(() => tags, [tags]);
+  
+  const filteredTag = useMemo(() => {
+    return tags.filter(tag => tag.isActive === true)
+  }, [tags])
+  
+  const defaultTag = useMemo(() => {
+    return tags.map((tag: TAGS_TYPE) => ({
+     ...tag,
+     isActive: false
+    }))
+  }, [])
     
   const activateTag = useCallback((tagName: string) => {
     setTag((prevData: TAGS_TYPE[]) =>
@@ -40,8 +53,7 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
     }, []);
     
   const confirmTag = useCallback(() => {
-    const filteredTag = tags.filter(tag => tag.isActive === true)
-    if((filteredTag.length + newTags.length) > 5 ) {
+    if ((filteredTag.length + newTags.length) > 5 ) {
       setShowInlineAlert({ type: "error", text: "You've reached the maximum number of tags (5). Please remove some to add new ones.", isActive: true }); 
       return;
     }
@@ -50,25 +62,19 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
       setSelectedTag((prevTag: TAGS_TYPE[]) => [...prevTag, ...newTags]);
     }
     
-    setNewTags([]);
-    setTag((prevTags: TAGS_TYPE[]) => prevTags.map((tag: TAGS_TYPE) => ({
-     ...tag,
-     isActive: false
-    })));
-    
-    if(showInlineAlert.isActive) setShowInlineAlert({ type: "", text: "", isActive: false}); 
+    if (newTags.length > 0) setNewTags([]);
+    if (showInlineAlert.isActive) setShowInlineAlert({ type: "", text: "", isActive: false}); 
     closeModal({ modal: false });
   }, [tags, newTags]);
   
   const cancelTag = useCallback(() => {
     setNewTags([]);
-    setTag((prevTags: TAGS_TYPE[]) => prevTags.map((tag: TAGS_TYPE) => ({
-     ...tag,
-     isActive: false
-    })));
+    setTag(defaultTag);
     if(showInlineAlert.isActive) setShowInlineAlert({ type: "", text: "", isActive: false}); 
     closeModal({ modal: false });
   }, [])
+  
+  
   return(
     <div className="w-full flex flex-col">
        <div className="w-full flex flex-col px-2">
@@ -77,19 +83,19 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
              <small className="text-zinc-500">select tags or create new one</small>
           </div>
           <div className="flex flex-wrap gap-2 mt-2 py-1">
-           <TagButton items={tags} setState={activateTag} />
+           <TagButton items={memoizedTags} setState={activateTag} />
          </div>
          <div className="flex flex-col w-full mt-2 text-left">
            <span className="font-medium dark:text-zinc-200">Add another tag</span>
            <small className="text-zinc-500 mb-2">add new tag if it doesn't exist</small>
-           <AddNewTag tags={tags}
+           <AddNewTag tags={memoizedTags}
              isDisplayed={showInlineAlert?.isActive ?? false}
              setShowInlineAlert={setShowInlineAlert} newTags={newTags} setNewTags={setNewTags}/>
            {showInlineAlert?.isActive && <InlineAlert text={showInlineAlert?.text ?? ""} type={showInlineAlert.type}/>}
          </div>
          <div className="w-full mt-3 flex justify-end gap-x-1">
-           <Button className="dark:text-zinc-500 text-zinc-400 font-medium p-2 rounded-md active:bg-zinc-200/30 active:dark:bg-zinc-700" text="Cancel" onClick={cancelTag}/>
-           <Button className="rounded-md border border-zinc-200 dark:border-zinc-700 text-zinc-400 dark:text-emerald-500 bg-zinc-200/30 font-medium dark:bg-zinc-800 active:bg-zinc-300/50 active:dark:bg-zinc-700 p-2" onClick={confirmTag} text="Confirm" />
+           <Button className="dark:text-zinc-600 text-zinc-400 font-medium p-2 rounded-md active:bg-zinc-200/30 active:dark:bg-zinc-700" text="Cancel" onClick={cancelTag}/>
+           <Button className="rounded-md border border-zinc-200 dark:border-zinc-700 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 font-medium dark:bg-zinc-800 active:bg-zinc-300/50 active:dark:bg-zinc-700 p-2" onClick={confirmTag} text="Confirm" />
          </div>
        </div>
     </div>

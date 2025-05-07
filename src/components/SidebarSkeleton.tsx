@@ -15,7 +15,7 @@ const SidebarSkeleton = ({ collapse = false, itemCount = 5 }: SkeletonProps) => 
       )}
       
       <ul className={`flex bg-inherit ${collapse 
-        ? "flex-row md:flex-col items-center md:items-start w-full bg-inherit border-b md:border-none border-zinc-200 dark:border-zinc-800 relative px-2 md:px-0 py-2 md:static space-x-5 md:space-x-0" 
+        ? "flex-row md:flex-col items-center md:items-start w-full bg-inherit border-b md:border-none border-zinc-200 dark:border-zinc-800 relative pl-3 md:pl-0 px-2 md:px-0 py-1 md:static space-x-5 md:space-x-0" 
         : "flex-col pt-1 md:pt-0 md:border-none"}`}>
         
         {Array(itemCount).fill(0).map((_, index) => (
@@ -23,8 +23,8 @@ const SidebarSkeleton = ({ collapse = false, itemCount = 5 }: SkeletonProps) => 
             ? "flex md:w-full" 
             : (!collapse ? "flex w-full" : "hidden md:flex w-full")} flex-row items-center md:pl-2 py-1`}>
             <div className={`py-1 px-2 rounded-md w-full flex gap-x-2`}>
-            <div className="h-5 w-5 md:w-8 md:h-8 rounded-md bg-zinc-200 dark:bg-zinc-800"></div>
-              <div className="h-5 md:h-8 w-16 md:w-full rounded-md bg-zinc-200 dark:bg-zinc-800"></div>
+            <div className="h-6 w-6 md:w-7 md:h-7 rounded-md bg-zinc-200 dark:bg-zinc-800"></div>
+              <div className="h-6 md:h-7  w-16 md:w-full rounded-md bg-zinc-200 dark:bg-zinc-800"></div>
             </div>
           </li>
         ))}

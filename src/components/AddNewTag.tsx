@@ -14,7 +14,6 @@ interface NEWTAG_TYPE {
 const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert }: NEWTAG_TYPE) => {
   const [input, setInput] = useState<string>('');
   const currentRef = useRef<HTMLInputElement | null>(null);
-  console.log("Rendered")
   const handleKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key === 'Backspace' && newTags.length > 0) {
       console.log(input)
@@ -22,7 +21,7 @@ const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert 
       if(isDisplayed) setShowInlineAlert((prevData) => ({...prevData,
       isActive: false }));
     } 
-    //I had to double it since it causes if just one
+    //I had to double it since it causes bug if just one
     if(isDisplayed) setShowInlineAlert((prevData) => ({...prevData,
       isActive: false }));  
   }, [newTags, input]);
@@ -31,8 +30,9 @@ const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert 
     const value = e.target.value as string;
     setInput(value);
     const isExist = tags.find(tag => tag.name.toLowerCase() === value.trim().toLowerCase());
-    if(isExist){
-      setShowInlineAlert({ type: "info", text: "This tag is already available. Simply click to choose it.", isActive: true }); 
+    const inputLength = value.trim().length > 35 as boolean;
+    if(isExist || inputLength){
+      setShowInlineAlert({ type: isExist ? "info" : "error", text: isExist ? "This tag is already available. Simply click to choose it." : "You have reached the maximum characters (35). Please make your tag shorter.", isActive: true }); 
       return
     }
     if (value.endsWith(' ')) {

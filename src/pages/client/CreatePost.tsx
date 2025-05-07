@@ -82,12 +82,13 @@ const CreatePost = () => {
           <div className="w-full flex flex-col mt-2">
              <span className="dark:text-zinc-200 font-medium">Tags</span>
              <small className="text-zinc-500 mb-2">choose tags or create new ones</small>
-             {selectedTag.length > 0 && <div className="flex mb-2 gap-2 flex-wrap w-full items-center">
-               <TagButton items={selectedTag} setState={filterTag} />
-             </div>}
+             <div className="flex mb-2 gap-2 flex-wrap w-full items-center">
+             {selectedTag.length > 0 && 
+               <TagButton items={selectedTag} setState={filterTag} />}
              <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex space-x-2 items-center self-start text-zinc-500 text-sm gap-x-1" onClick={openModal}>
                  Add tags
                 <Plus size={18} /></Button>
+            </div> 
             <BackdropBg show={showModal.modal ?? false} setBackdrop={setModal} position="items-center" objKey="modal">
               <Modal openModal={showModal?.modal ?? false} setModal={setModal} showCloseBtn={true}>
                  <Suspense fallback={<Spinner size="w-10 h-10" />}>

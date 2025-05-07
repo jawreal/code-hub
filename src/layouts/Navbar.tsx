@@ -40,7 +40,7 @@ const Navbar = () => {
   
   const openDropdown = useCallback(() => {
     setToggle((prev: TOGGLE_STATE) => ({ ...prev, dropdown: !prev.dropdown}));
-  }, [])
+  }, [toggle])
   
   const switchForm = useCallback(() => {
      dispatch(handleForm({ isSignUp: !isSignUp})) 
