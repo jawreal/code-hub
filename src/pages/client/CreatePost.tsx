@@ -18,7 +18,7 @@ const CreatePost = () => {
   })
   const [postData, setPostData] = useState<POSTDATA_TYPE>({
     post_type: null, 
-    body: "**Post your details here**", 
+    body: "", 
   });
   const questionPost = useCallback(() => {
     setPostData((prevState: POSTDATA_TYPE) => ({
@@ -82,7 +82,7 @@ const CreatePost = () => {
           <div className="w-full flex flex-col mt-2">
              <span className="dark:text-zinc-200 font-medium">Tags</span>
              <small className="text-zinc-500 mb-2">choose tags or create new ones</small>
-             <div className="flex mb-2 gap-2 flex-wrap w-full items-center">
+             <div className="flex mb-2 gap-2 flex-wrap w-full items-center overflow-hidden">
              {selectedTag.length > 0 && 
                <TagButton items={selectedTag} setState={filterTag} />}
              <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex space-x-2 items-center self-start text-zinc-500 text-sm gap-x-1" onClick={openModal}>
@@ -103,6 +103,7 @@ const CreatePost = () => {
            </div>
            <MarkdownEditor value={postData?.body ?? ""} setPostData={setPostData}/>
          </div>
+         <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex items-center self-start text-zinc-500 mt-3 ml-auto" text="Post" type="submit" />
        </form>
       </main>
     </div>

@@ -16,7 +16,6 @@ const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert 
   const currentRef = useRef<HTMLInputElement | null>(null);
   const handleKeyDown = useCallback((e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key === 'Backspace' && newTags.length > 0) {
-      console.log(input)
       setNewTags((prevTags: TAGS_TYPE[]) => prevTags.slice(0, -1));
       if(isDisplayed) setShowInlineAlert((prevData) => ({...prevData,
       isActive: false }));
@@ -51,7 +50,7 @@ const AddNewTag = ({ tags, newTags, setNewTags, isDisplayed, setShowInlineAlert 
   }, [])
   
   return (
-    <div className={`w-full flex flex-wrap items-center gap-2 rounded-md border border-zinc-300 dark:border-zinc-800 ${newTags.length > 0 && "py-2"} px-2`}>
+    <div className={`w-full overflow-auto flex flex-wrap items-center gap-2 rounded-md border border-zinc-300 dark:border-zinc-800 ${newTags.length > 0 && "py-2"} px-2`}>
       <TagButton items={newTags} setState={removeTag}/>
       <Inputbox 
         ref={currentRef}

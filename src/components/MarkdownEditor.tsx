@@ -1,7 +1,8 @@
-import { lazy, Suspense, useCallback, memo, Dispatch, SetStateAction, useMemo } from 'react';
+import { lazy, Suspense, useCallback, memo, Dispatch, SetStateAction, useMemo, useState, useEffect } from 'react';
 const MDEditor = lazy(() => import('@uiw/react-md-editor'));
 import { POSTDATA_TYPE } from '../helpers/reusableTypes';
 import MarkdownSkeleton from './MarkdownSkeleton';
+import { debounce } from 'lodash';
 
 interface EDITOR_TYPE {
   value: string;
@@ -12,34 +13,50 @@ const MemoizedMDEditor = memo(({ value, onChange }: {
   value: string; 
   onChange: (value?: string) => void 
 }) => {
-  return (
-    useMemo(() => {
-     return <MDEditor
+  return useMemo(() => (
+    <MDEditor
       value={value}
       height="100%"
+      renderhtml={value?.toString()} 
+      visibledragbar={value?.toString()} 
       preview="edit"
       onChange={onChange}
     />
-    }, [value])
-  );
+  ), [value, onChange]); 
 });
 
 const MarkdownEditor = ({ value, setPostData }: EDITOR_TYPE) => {
+  const [localValue, setLocalValue] = useState(value);
+  
+  useEffect(() => {
+    setLocalValue(value);
+  }, [value]);
+  
+  const debouncedSetPostData = useCallback(
+    debounce((newValue: string) => {
+      if (newValue !== undefined) {
+        setPostData((prevData: POSTDATA_TYPE) => ({ ...prevData, body: newValue }));
+      }
+    }, 500),
+    [setPostData] 
+  );
+  
+  useEffect(() => {
+    return () => {
+      debouncedSetPostData.cancel();
+    };
+  }, [debouncedSetPostData]);
  
   const handleChange = useCallback((newValue?: string) => {
-    if (newValue !== undefined) {
-      setPostData((prevData: POSTDATA_TYPE) => ({
-        ...prevData, 
-        body: newValue
-      }));
-    }
-  }, []);
+    setLocalValue(newValue || '');
+    debouncedSetPostData(newValue || '');
+  }, [debouncedSetPostData]);
   
   return (
     <div className="w-full h-[25rem] md:h-[40rem]">
       <Suspense fallback={<MarkdownSkeleton />}>
         <MemoizedMDEditor 
-          value={value} 
+          value={localValue} // Use local state for immediate updates
           onChange={handleChange} 
         />
       </Suspense>

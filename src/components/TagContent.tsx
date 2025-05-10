@@ -76,7 +76,7 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
   
   
   return(
-    <div className="w-full flex flex-col">
+    <div className="w-full overflow-auto flex flex-col">
        <div className="w-full flex flex-col px-2">
           <div className="flex flex-col text-left w-full">
              <span className="font-medium dark:text-zinc-200 text-lg">Select tags</span>
@@ -85,7 +85,7 @@ const TagContent = ({ setSelectedTag, closeModal }: TAGCONTENT_TYPE) => {
           <div className="flex flex-wrap gap-2 mt-2 py-1">
            <TagButton items={memoizedTags} setState={activateTag} />
          </div>
-         <div className="flex flex-col w-full mt-2 text-left">
+         <div className="flex flex-col w-full overflow-auto mt-2 text-left">
            <span className="font-medium dark:text-zinc-200">Add another tag</span>
            <small className="text-zinc-500 mb-2">add new tag if it doesn't exist</small>
            <AddNewTag tags={memoizedTags}
