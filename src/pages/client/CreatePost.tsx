@@ -4,7 +4,7 @@ import Spinner from '../../assets/Spinner'
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';
 import TagButton from '../../components/TagButton';
-import { Plus, HelpCircle, Trophy } from 'lucide-react';
+import { Plus, HelpCircle, Trophy, Send } from 'lucide-react';
 import MarkdownEditor from '../../components/MarkdownEditor';
 import BackdropBg from '../../components/BackdropBg';
 import Modal from '../../components/Modal';
@@ -103,7 +103,10 @@ const CreatePost = () => {
            </div>
            <MarkdownEditor value={postData?.body ?? ""} setPostData={setPostData}/>
          </div>
-         <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex items-center self-start text-zinc-500 mt-3 ml-auto" text="Post" type="submit" />
+         <Button className="bg-emerald-600 dark:bg-emerald-400/25 dark:border dark:border-emerald-50/20 rounded-md py-2 px-4 text-emerald-50 font-medium mt-3 ml-auto min-w-[12rem] flex gap-x-2 justify-center " type="submit">
+            <span><Send size={22} /></span>
+            <span>Send Question</span>
+         </Button>
        </form>
       </main>
     </div>

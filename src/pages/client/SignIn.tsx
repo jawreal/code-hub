@@ -17,11 +17,11 @@ const SignIn = () => {
              <Navbar />
           </Suspense>
         </div>
-        <div className="flex flex-col w-68 md:w-96 md:mr-auto md:ml-10 text-center md:text-left z-10">
-          <label className="text-4xl md:text-5xl font-extrabold dark:text-zinc-200">Code Smarter</label>
-          <label className="text-4xl md:text-5xl font-extrabold text-emerald-600">Not Harder</label>
-          <label className="text-zinc-500 text-md px-2 md:px-0">Join discussions, participate in events, and connect with fellow developers to stay current with industry trends.
-          </label>
+        <div className="flex flex-col w-full md:w-96 md:mr-auto md:ml-10 text-center md:text-left z-10">
+          <span className="text-4xl md:text-5xl font-extrabold dark:text-zinc-200">Code Smarter</span>
+          <span className="text-4xl md:text-5xl font-extrabold text-emerald-600">Not Harder</span>
+          <span className="text-zinc-500 text-md px-2 md:px-0">Join discussions, participate in events, and connect with fellow developers to stay current with industry trends.
+          </span>
         </div>
         {isSignUp && <CreateAcc />} 
         {!isSignUp && <WelcomeBack />} 
