@@ -17,8 +17,7 @@ const MemoizedMDEditor = memo(({ value, onChange }: {
     <MDEditor
       value={value}
       height="100%"
-      renderhtml={value?.toString()} 
-      visibledragbar={value?.toString()} 
+      visibleDragbar={true}
       preview="edit"
       onChange={onChange}
     />

@@ -14,7 +14,7 @@ const Challenge = () => {
              <SidebarContent items={challengeItems} collapse={true} />
          </Suspense>
       </section>
-      <main className="flex-[2] order-2  h-full pb-12 bg-inherit flex flex-col"> 
+      <main className="flex-[2] order-2 h-full pb-12 bg-inherit flex flex-col"> 
          <div className="h-full flex flex-col w-full gap-y-3 p-3">
            <Suspense fallback={<PostSkeleton />}>
              <UserPost width="w-full md:border-l-none px-2 max-w-[60rem]"/>
