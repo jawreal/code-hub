@@ -1,12 +1,20 @@
 import Image from '../../components/Image';
+import { STATSDATA_TYPE } from '../../helpers/reusableTypes';
 import { PencilLine, History, MapPin, Mail } from 'lucide-react';
 import Button from '../../components/Button';
 import Stats from '../../components/Stats';
 import Details from '../../components/Details';
+import TagBadge from '../../components/TagBadge';
+const tagItemsData = ["JavaScript", "Java", "Python", "Php", "NodeJs"];
+const statsData: STATSDATA_TYPE[] = [
+  { total: 36, hasBorder: true, postType: "Questions" },
+  { total: 56, hasBorder: true, postType: "Challenges" },
+  { total: 230, hasBorder: false, postType: "Answers" },
+];
 
 const Profile = () => {
   return (
-    <div className="w-full h-full flex flex-col p-2">
+    <div className="w-full h-full flex flex-col md:flex-row p-2 space-y-3 md:space-x-3 md:space-y-0">
       <section className="w-full md:max-w-80 py-3 px-5 flex flex-col items-center rounded-md border border-zinc-200 dark:border-zinc-800">
          <Image className="bg-zinc-100 rounded-full w-[6rem] h-[6rem] md:w-[8rem] md:h-[8rem]" url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRg2OjmihDXthKrF4Eaqakobyr2JT422gRpa9XagT6OjSZf7p_TDQ8mgLM&s=10"/>
          <div className="w-full flex flex-col px-4 justify-center items-center">
@@ -19,19 +27,23 @@ const Profile = () => {
              <span>Edit profile</span> 
            </Button>
            <div className="w-full flex flex-col">
-              <div className="w-full flex gap-x-2 my-2">
-                <Stats total={36} hasBorder={true} postType="Questions" />
-                <Stats total={56} hasBorder={true} postType="Challenges" />
-                <Stats total={230} hasBorder={false} postType="Answers" />
+             <div className="w-full flex space-x-2 my-2">
+                <Stats items={statsData} />
               </div>
            </div>
-           <div className="w-full mt-2 flex flex-col justify-start px-1 pt-2 border-t border-zinc-200 dark:border-zinc-800 space-y-1">
+           <div className="w-full flex flex-col justify-center px-1 pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2 dark:border-zinc-800 gap-y-1">
              <Details text="Joined Sep 2, 2024" isStartPosition={false} icon={<History className="flex-shrink-0 h-5 mt-1 md:h-6"/>} />
-             <Details text="@johndoe@mail.com" isStartPosition={false} icon={<Mail className="flex-shrink-0 h-5 md:h-6"/>} />
+             <Details text="johndoe@mail.com" isStartPosition={false} icon={<Mail className="flex-shrink-0 h-5 md:h-6"/>} />
              <Details text="456 Oxford Street, London, United Kingdom" isStartPosition={true} icon={<MapPin className="mt-1 flex-shrink-0 h-5 md:h-6" />} />
            </div>
          </div> 
       </section>
+      <main className="w-full h-full flex flex-col">
+        <div className="w-full max-w-[60rem] border border-zinc-200 dark:border-zinc-800 rounded-md py-2 px-4 md:px-3 space-y-2">
+          <span className="dark:text-zinc-200 font-medium">Most used tags</span>
+          <TagBadge tags_item={tagItemsData} />
+        </div>
+      </main>
     </div>
     );
 };

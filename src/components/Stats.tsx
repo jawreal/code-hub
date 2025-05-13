@@ -1,16 +1,19 @@
-import { memo, ReactNode } from 'react';
+import { memo } from 'react';
+import { STATSDATA_TYPE } from '../helpers/reusableTypes';
 
 interface STATS_TYPE {
-  total: number;
-  hasBorder: boolean;
-  postType: string;
+  items: STATSDATA_TYPE[];
 }
-const Stats = ({ total, hasBorder, postType }: STATS_TYPE ) => {
+
+const Stats = ({ items }: STATS_TYPE ) => {
   return(
-     <div className={`flex-[1] h-10 p-2 ${hasBorder && "border-r border-zinc-200 dark:border-zinc-800"} flex flex-col justify-center items-center`}>
-         <span className="font-extrabold dark:text-zinc-200 text-2xl">{total}</span>
-         <span className="font-medium text-zinc-500 text-sm">{postType}</span>
-      </div>
+    <>
+     {items?.map((item: STATSDATA_TYPE) => (
+     <div key={item.postType} className={`flex-[1] h-10 p-2 ${item.hasBorder && "border-r border-zinc-200 dark:border-zinc-800"} flex flex-col justify-center items-center`}>
+         <span className="font-extrabold dark:text-zinc-200 text-2xl">{item.total}</span>
+         <span className="font-medium text-zinc-500 text-sm">{item.postType}</span>
+      </div>))}
+    </>
     );
 }
 
