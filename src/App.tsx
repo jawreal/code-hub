@@ -9,12 +9,14 @@ const CreatePost = lazy(() => import('./pages/client/CreatePost'));
 const Questions = lazy(() => import('./pages/client/Questions'));
 const Profile = lazy(() => import('./pages/client/Profile'));
 import useDarkMode from './hooks/useDarkMode';
+import { AuthProvider } from './hooks/useAuthChecker';
 
 function App() {
   useDarkMode();
   return (
     <>
-      <Router>
+    <Router>
+      <AuthProvider> 
         <Routes>
           <Route path="/" element={
             <Suspense fallback={<PageFallback />}>
@@ -53,7 +55,8 @@ function App() {
             </Suspense>
           } />
         </Routes>
-      </Router>
+      </AuthProvider> 
+    </Router>
     </>
   );
 }
