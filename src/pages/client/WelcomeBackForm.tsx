@@ -7,6 +7,7 @@ import { handleGithub } from '../../services/handleGithub';
 import { handleGoogle } from '../../services/handleGoogle';
 import { Mail, Lock } from 'lucide-react';
 import { supabase } from '../../services/supabaseClient';
+
 interface CREDENTIALS_TYPE {
   email: string;
   password: string;
@@ -41,6 +42,7 @@ const WelcomeBack = () => {
       console.log("Error occured", err)
     }
   }, [credentials]);
+  
   return (
       <form name="sign-in" className="flex flex-col md:ml-auto md:mr-10 gap-y-3 w-72 md:w-80 text-center z-10" onSubmit={handleSignIn}>
            <span className="text-xl font-medium dark:text-slate-200">Welcome Back</span>

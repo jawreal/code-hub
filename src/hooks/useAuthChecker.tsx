@@ -1,25 +1,15 @@
-import {
-  useState,
-  useContext,
-  createContext,
-  ReactNode,
-  useEffect,
-} from 'react';
+import { useState, useContext, createContext, ReactNode, useEffect } from 'react';
+import { Session } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 
-const authContext = createContext<any>(null);
+const AuthContext = createContext<any>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if(!session) navigate('/sign-in');
-    });
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -31,14 +21,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <authContext.Provider value={{ session }}>
+    <AuthContext.Provider value={{ session }}>
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
 export const useAuthContext = () => {
-  const context = useContext(authContext);
+  const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuthContext must be used within an AuthProvider');
   }
