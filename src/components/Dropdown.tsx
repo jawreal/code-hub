@@ -30,12 +30,12 @@ const Dropdown = ({ setDropdown, items, isSlice }: DP_TYPE) => {
   
   //if(!showDropdown) return null;
   return (
-     <ul ref={outsideRef} className="absolute min-w-[11rem] flex flex-col items-center divide-y divide-zinc-200 dark:divide-zinc-800 z-10 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 mt-2 right-0">
+     <ul ref={outsideRef} className="absolute min-w-[11rem] flex flex-col items-center z-10 rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 mt-2 right-0 shadow shadow-sm overflow-hidden">
          {memoizedItems?.map((item: ITEMS_TYPE) => {
           const newPath = item.name.replaceAll(" ", "-");
           const currPath = useActivePath(location.pathname, newPath);
           return (<li key={item.name} className="flex flex-row items-center w-full">
-             <Link to={`/${newPath.toLowerCase()}`} className={`${currPath ? "dark:bg-zinc-900 bg-zinc-200/40 font-medium text-zinc-600 dark:text-zinc-200" : "text-zinc-400 dark:text-zinc-500 bg-100/30"} text-sm py-3 px-4 w-full whitespace-nowrap flex gap-x-3`}>
+             <Link to={`/${newPath.toLowerCase()}`} className={`${currPath ? "font-medium bg-zinc-200/30 dark:bg-zinc-800" : "bg-100/30"} dark:text-zinc-200 text-sm py-3 px-3 w-full whitespace-nowrap flex gap-x-3`}>
                {item.icon && <span className="text-zinc-400" >{item.icon}</span>}
               <span>{item.name}</span>
              </Link>

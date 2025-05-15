@@ -39,7 +39,8 @@ const Navbar = () => {
   }, []);
   
   const openDropdown = useCallback(() => {
-    setToggle((prev: TOGGLE_STATE) => ({ ...prev, dropdown: !prev.dropdown}));
+    setToggle((prev: TOGGLE_STATE) => ({...prev, dropdown: !prev.dropdown
+   }));
   }, [toggle])
   
   const switchForm = useCallback(() => {
@@ -83,7 +84,7 @@ const Navbar = () => {
       {!SignInPage && 
          <div className="relative">
             <Button className="p-2 w-7 h-7 rounded-full bg-zinc-200" onClick={openDropdown}/>
-            {(!SignInPage && toggle?.dropdown) && <Dropdown setDropdown={setToggle} items={navDpItems} isSlice={false}/>}
+            {toggle?.dropdown && <Dropdown setDropdown={setToggle} items={navDpItems} isSlice={false}/>}
          </div>}
       </div>
     </nav>
