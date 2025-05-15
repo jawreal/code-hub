@@ -1,8 +1,9 @@
-import React, { memo, useRef, useEffect, useMemo } from 'react';
+import React, { memo, useRef, useEffect, useMemo, useCallback } from 'react';
 import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { ITEMS_TYPE, TOGGLE_STATE } from '../helpers/reusableTypes';
+import { supabase } from '../services/supabaseClient';
 
 interface DP_TYPE {
   items: ITEMS_TYPE[];
@@ -28,14 +29,23 @@ const Dropdown = ({ setDropdown, items, isSlice }: DP_TYPE) => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
   
+  const handleSignout = useCallback(async(): Promise<void> => {
+    try {
+      await supabase.auth.signOut()
+    }catch(err){
+      console.log("Error occured in Signout", err);
+    }
+  }, []) 
+  
   //if(!showDropdown) return null;
   return (
      <ul ref={outsideRef} className="absolute min-w-[11rem] flex flex-col items-center z-10 rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 mt-2 right-0 shadow shadow-sm overflow-hidden">
          {memoizedItems?.map((item: ITEMS_TYPE) => {
           const newPath = item.name.replaceAll(" ", "-");
+          const isSignOut = item?. name === "Sign Out";
           const currPath = useActivePath(location.pathname, newPath);
-          return (<li key={item.name} className="flex flex-row items-center w-full">
-             <Link to={`/${newPath.toLowerCase()}`} className={`${currPath ? "font-medium bg-zinc-200/30 dark:bg-zinc-800" : "bg-100/30"} dark:text-zinc-200 text-sm py-3 px-3 w-full whitespace-nowrap flex gap-x-3`}>
+          return (<li key={item.name} className={`flex flex-row items-center w-full ${isSignOut && "border-t border-zinc-200 dark:border-zinc-700"}`}>
+             <Link to={`${!isSignOut ? `/${newPath.toLowerCase()}` : "#"}`} className={`${currPath ? "font-medium bg-zinc-200/30 dark:bg-zinc-800" : "bg-100/30"} dark:text-zinc-200 text-sm py-3 px-3 w-full whitespace-nowrap flex gap-x-3 ${isSignOut && "active:bg-zinc-200/30 active:dark:bg-zinc-800/60"}`} onClick={isSignOut ? handleSignout : undefined}>
                {item.icon && <span className="text-zinc-400" >{item.icon}</span>}
               <span>{item.name}</span>
              </Link>
