@@ -24,14 +24,19 @@ const Dropdown = ({ setDropdown, items, isSlice }: DP_TYPE) => {
   const memoizedItems = useMemo(() => {
     return isSlice ? items.slice(2) : items;
   }, [isSlice]);
+  
+  const signoutExist = useMemo(() => {
+    return items?.some(item => item?.name === "Sign Out")
+  }, [])
 
   useEffect(() => {
   const handleClickOutside = (event: MouseEvent | TouchEvent) => {
     const target = event.target as Node;
     const clickedOutsideDropdown = outsideRef.current && !outsideRef.current.contains(target);
     const clickedOutsideBackdrop = backdropRef.current && !backdropRef.current.contains(target);
+    const clickCondition = signoutExist ? (clickedOutsideDropdown && clickedOutsideBackdrop) : clickedOutsideDropdown;
 
-    if (clickedOutsideDropdown && clickedOutsideBackdrop ) {
+    if (clickCondition) {
       setDropdown((prevState: TOGGLE_STATE) => ({
         ...prevState,
         dropdown: false
@@ -54,7 +59,7 @@ const Dropdown = ({ setDropdown, items, isSlice }: DP_TYPE) => {
   
   return (
      <>
-     <div ref={backdropRef}>
+     {signoutExist && <div ref={backdropRef}>
        <BackdropBg
          show={show.modal ?? false}
          setBackdrop={setShowModal}
@@ -65,7 +70,7 @@ const Dropdown = ({ setDropdown, items, isSlice }: DP_TYPE) => {
            <ConfirmSignout offModal={setShowModal} />
          </Modal>
        </BackdropBg>
-     </div>
+     </div>}
      <ul ref={outsideRef} className={`absolute min-w-[11rem] flex flex-col items-center z-10 rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 mt-2 right-0 shadow shadow-sm overflow-hidden ${show?.modal && "hidden"}`} >
          {memoizedItems?.map((item: ITEMS_TYPE) => {
           const newPath = item.name.replaceAll(" ", "-");

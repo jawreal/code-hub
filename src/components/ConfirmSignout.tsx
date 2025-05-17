@@ -1,5 +1,5 @@
 import { LogOut } from 'lucide-react';
-import { useState, useCallback, MouseEvent, Dispatch, SetStateAction } from 'react';
+import { useState, useCallback, MouseEvent, Dispatch, SetStateAction, memo } from 'react';
 import { supabase } from '../services/supabaseClient';
 import Button from './Button';
 import Spinner from '../assets/Spinner';
@@ -40,7 +40,7 @@ const ConfirmSignout = ({ offModal }: PROP_TYPE) => {
     <div className="w-full flex justify-end gap-x-3">
       <Button className="p-y px-3 rounded-md border border-zinc-300 dark:border-zinc-800 font-medium dark:text-zinc-200 text-sm active:bg-zinc-200/30 active:dark:bg-zinc-800/40" text="Stay signed in" onClick={cancelSignout} />
       <Button className="py-2 px-3 rounded-md font-medium text-red-50 text-sm bg-red-600 dark:dark:bg-red-800 active:bg-red-700 active:dark:bg-red-800/40 flex gap-x-2 items-center" onClick={handleSignout}>
-        {isLoading ? <Spinner size="w-4 h-4" color="border-2 border-red-500 dark:text-red-700" /> :
+        {isLoading ? <Spinner size="w-4 h-4" color="border-2 border-red-300 dark:text-red-700" /> :
          <>
          <span className="text-red-50"><LogOut size={18} /></span>
          <span>Sign out</span>
@@ -52,4 +52,4 @@ const ConfirmSignout = ({ offModal }: PROP_TYPE) => {
  );
 };
 
-export default ConfirmSignout;
+export default memo(ConfirmSignout);
