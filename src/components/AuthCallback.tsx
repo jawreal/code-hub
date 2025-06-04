@@ -23,7 +23,7 @@ const AuthCallback = () => {
   }, [session, isLoading]);
   
   return (
-    <div className="min-h-screen justify-center items-center">
+    <div className="min-h-screen justify-center items-center bg-zinc-50 dark:bg-zinc-950">
       {isLoading && <PageFallback />}
     </div>
     );

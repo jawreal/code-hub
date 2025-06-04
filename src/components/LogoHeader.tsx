@@ -8,7 +8,7 @@ const LogoHeader = ({ page }: { page: boolean; }) => {
       <div className="w-9 h-9">
         <Image url={CodehubLogo} className="h-full w-full" />
       </div>
-      {page && <span className={`dark:text-zinc-200 font-extrabold text-xl md:text-2xl ${page ? "inline" : "hidden md:inline"}`} >CodeHub</span>}
+      {page && <span className={`dark:text-zinc-200 font-extrabold text-xl md:text-2xl ${page ? "inline" : "hidden md:inline"}`} >Code-hub</span>}
     </>
     );
 };

@@ -28,3 +28,8 @@ export type INLINEALERT_TYPE = {
   isActive?: boolean;
   text?: string;
 }; 
+export interface CREDENTIALS_TYPE {
+  username?: string;
+  email: string;
+  password: string;
+};

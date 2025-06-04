@@ -2,6 +2,11 @@ import { lazy, Suspense } from 'react';
 import NavbarSkeleton from '../../components/NavbarSkeleton';
 const Navbar = lazy(() => import('../../layouts/Navbar')); 
 import WelcomeBack from './WelcomeBackForm';
+import Button from '../../components/Button';
+import GoogleLogo from '../../assets/GoogleLogo';
+import GitHubLogo from '../../assets/GitHubLogo';
+import { handleGithub } from '../../services/handleGithub';
+import { handleGoogle } from '../../services/handleGoogle';
 import CreateAcc from './CreateAccForm';
 import { RootState } from '../../features/store';
 import { useSelector } from 'react-redux';
@@ -23,8 +28,15 @@ const SignIn = () => {
           <span className="text-zinc-500 text-md px-2 md:px-0">Join discussions, participate in events, and connect with fellow developers to stay current with industry trends.
           </span>
         </div>
-        {isSignUp && <CreateAcc />} 
-        {!isSignUp && <WelcomeBack />} 
+        <div className="flex flex-col md:ml-auto md:mr-10 gap-y-2 w-72 md:w-80 text-center z-10">
+          {isSignUp && <CreateAcc />} 
+          {!isSignUp && <WelcomeBack />} 
+          <span className="text-zinc-500 my-3">or continue with</span>
+          <div className="w-full flex flex-row justify-center gap-x-2">
+            <Button className="dark:bg-zinc-900 bg-zinc-100 rounded-md py-3 flex-1 flex justify-center px-6 font-medium border border-zinc-300 dark:border-zinc-800 active:bg-zinc-300/30 active:dark:bg-zinc-950/30" onClick={handleGoogle} icon={<GoogleLogo />}/>
+            <Button className="dark:bg-zinc-900 bg-zinc-100 rounded-md py-3 flex-1 flex justify-center px-6 font-medium border border-zinc-300 dark:border-zinc-800 active:bg-zinc-300/30 active:dark:bg-zinc-950/30" onClick={handleGithub} icon={<GitHubLogo />}/>
+          </div>
+      </div>
     </div>
     </>
     );
