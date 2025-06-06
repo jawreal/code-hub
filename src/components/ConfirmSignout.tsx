@@ -1,21 +1,26 @@
 import { LogOut } from 'lucide-react';
 import { useState, useCallback, MouseEvent, Dispatch, SetStateAction, memo } from 'react';
-import { supabase } from '../services/supabaseClient';
 import Button from './Button';
 import Spinner from '../assets/Spinner';
 import { TOGGLE_STATE } from '../helpers/reusableTypes';
+import { useAuthContext } from '../hooks/useAuthChecker';
+
 interface PROP_TYPE {
   offModal: Dispatch<SetStateAction<TOGGLE_STATE>>;
 }
 
 const ConfirmSignout = ({ offModal }: PROP_TYPE) => {
+  const { refetch } = useAuthContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleSignout = useCallback(async(): Promise<void> => {
-    setIsLoading(true)
-    try {
-      await supabase.auth.signOut()
+    setIsLoading(true);
+    try{
+      const result = await fetch('http://localhost:3000/auth/sign-out', {
+        credentials: 'include'
+      });
+      if(result.status === 200 && refetch) refetch();
     }catch(err){
-      console.log("Error occured in Signout", err);
+      console.log("Error sign-out", err)
     }
   }, []);
   

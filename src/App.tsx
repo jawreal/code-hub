@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageFallback from './components/PageFallback';
-import AuthCallback from './components/AuthCallback';
 import Layout from './layouts/Layout';
 const SignIn = lazy(() => import('./pages/client/SignIn'));
 const Home = lazy(() => import('./pages/client/Home'));
@@ -81,7 +80,6 @@ function App() {
                 </Suspense>
               }
             />
-            <Route path="/auth/callback" element={<AuthCallback />}/>
           </Routes>
         </AuthProvider>
       </Router>

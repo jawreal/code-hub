@@ -1,27 +1,38 @@
-import { useState, useContext, createContext, ReactNode, useEffect } from 'react';
-import { Session } from '@supabase/supabase-js';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../services/supabaseClient';
+import { useContext, createContext, ReactNode, useEffect, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getSession } from '../services/getSession';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 
-const AuthContext = createContext<any>(null);
+type Context = {
+  refetch?: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
+}
+
+const AuthContext = createContext<Context | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const { data, isLoading, refetch } = useQuery({
+    queryFn: getSession, 
+    queryKey: ["session"], 
+  });
   const navigate = useNavigate();
-  const [session, setSession] = useState<Session | null>(null);
+  const location = useLocation();
+  const entry: string[] = useMemo(() => ["sign-in", "sign-up"], []);
+  const currentEntryPage = useMemo(() => entry.some(page => location.pathname.includes(page)), [location, data])
 
   useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      if(!session) navigate('/sign-in');
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+    const checkAuth = () => {
+      if(!isLoading){
+        if(data?.authenticated === false && !currentEntryPage) return navigate('/sign-in', { replace: true}) 
+        if(data?.authenticated === true && currentEntryPage) return navigate('/home', { replace: true})
+      }
+    };
+    
+    checkAuth();
+  }, [data, isLoading, navigate]);
 
   return (
-    <AuthContext.Provider value={{ session }}>
+    <AuthContext.Provider value={{ refetch }}>
       {children}
     </AuthContext.Provider>
   );

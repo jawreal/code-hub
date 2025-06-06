@@ -1,17 +1,3 @@
-import { supabase } from './supabaseClient';
-
-export const handleGithub = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`, 
-        queryParams: {
-          prompt: "login", 
-      },
-      }
-    });
-
-    if (error) {
-      console.error("GitHub login error:", error.message);
-   }
+export const handleGithub = () => {
+    window.location.href = 'http://localhost:3000/auth/github/sign-in';
 };

@@ -1,12 +1,16 @@
-import { supabase } from './supabaseClient';
-import { Session } from '@supabase/supabase-js';
+type Session = {
+  authenticated?: boolean;
+}
 
-export const getSession = async (): Promise<Session | null | undefined> => {
+export const getSession = async (): Promise<Session | undefined> => {
   try {
-    const { data: { session } } = await supabase.auth.getSession();
-    return session;
+    const result = await fetch('http://localhost:3000/auth/verify-user', {
+      credentials: "include"
+    });
+    const session = await result.json();
+    if (session) return session;
   } catch (err) {
     console.error('Error fetching session:', err);
-    return undefined;
+    return { authenticated: false };
   }
 };
