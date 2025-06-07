@@ -26,6 +26,7 @@ const CreatePost = () => {
      post_type: "question", 
     }))
   }, []);
+  
   const challengePost = useCallback(() => {
     setPostData((prevState: POSTDATA_TYPE) => ({
      ...prevState,
@@ -103,8 +104,8 @@ const CreatePost = () => {
            </div>
            <MarkdownEditor value={postData?.body ?? ""} setPostData={setPostData}/>
          </div>
-         <Button className="bg-emerald-600 dark:bg-emerald-400/25 dark:border dark:border-emerald-50/20 rounded-md py-2 px-4 text-emerald-50 font-medium mt-3 ml-auto flex gap-x-2 justify-center" type="submit">
-            <span><Send size={22} /></span>
+         <Button className="bg-zinc-200 rounded-md dark:bg-zinc-900 px-3 py-2 text-zinc-600 border border-zinc-300 dark:border-zinc-800 dark:text-zinc-200 font-medium mt-3 ml-auto flex items-center gap-x-2 justify-center" type="submit">
+            <span><Send size={20} /></span>
             <span>Send Question</span>
          </Button>
        </form>
