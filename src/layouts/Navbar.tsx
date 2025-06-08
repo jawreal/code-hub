@@ -1,9 +1,6 @@
 import { useState, useCallback, lazy, Suspense } from 'react';
 import { Sun, Moon, AlignJustify, Search, Bell } from "lucide-react";
 import useDarkMode from "../hooks/useDarkMode";
-import { RootState, AppDispatch } from '../features/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { handleForm } from '../features/redux/SwitchFormSlice';
 import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';
 import Button from "../components/Button";
@@ -25,8 +22,6 @@ const Navbar = () => {
     sidebar: false, 
     modal: false, 
   });
-  const dispatch = useDispatch<AppDispatch>();
-  const { isSignUp } = useSelector((state: RootState) => state.switchForm);
   const [darkMode, setDarkMode] = useDarkMode();
   const SignInPage = useActivePath(location.pathname, 'sign-in');
   
@@ -42,10 +37,6 @@ const Navbar = () => {
     setToggle((prev: TOGGLE_STATE) => ({...prev, dropdown: !prev.dropdown
    }));
   }, [toggle])
-  
-  const switchForm = useCallback(() => {
-     dispatch(handleForm({ isSignUp: !isSignUp})) 
-  }, [isSignUp])
   
   const switchTheme = useCallback(() => {
     setDarkMode((prev: boolean) => !prev)
@@ -74,7 +65,6 @@ const Navbar = () => {
          </BackdropBg>
       </div>}
       <div className={`flex flex-row ml-auto items-center ${SignInPage ? "md:mr-10" : "mr-3"}`}>
-        {SignInPage && <Button className="bg-emerald-600 active:bg-emerald-700 dark:bg-emerald-400/25 active:dark:bg-emerald-800/40 dark:border dark:border-emerald-50/20 rounded-md py-2 px-4 text-emerald-50 font-medium w-24" text={isSignUp ? "Sign In" : "Sign Up"} onClick={switchForm}/>} 
         <Button
         className={`${!SignInPage ? "p-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-200/30 dark:bg-zinc-900/40 mx-2" : "p-2"} text-zinc-400 dark:text-zinc-200 active:bg-zinc-300/50 active:dark:bg-zinc-800`}
         icon={darkMode ? <Moon size={22} /> : <Sun size={22} />}

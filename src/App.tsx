@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageFallback from './components/PageFallback';
 import Layout from './layouts/Layout';
+import WelcomeBack from './pages/client/WelcomeBackForm';
+import CreateAcc from './pages/client/CreateAccForm';
 const SignIn = lazy(() => import('./pages/client/SignIn'));
 const Home = lazy(() => import('./pages/client/Home'));
 const Challenge = lazy(() => import('./pages/client/Challenge'));
@@ -78,8 +80,10 @@ function App() {
                 <Suspense fallback={<PageFallback />}>
                   <SignIn />
                 </Suspense>
-              }
-            />
+              }>
+               <Route index element={<WelcomeBack />} />
+               <Route path="create" element={<CreateAcc />} />
+            </Route>
           </Routes>
         </AuthProvider>
       </Router>
