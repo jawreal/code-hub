@@ -25,8 +25,7 @@ const Inputbox = ({ placeholder, icon, type, isTransparent, value, onKeyDown, on
   }
   
   const changeType = useCallback(() => {
-    if(!value) return;
-    if (defType === "password" && value.trim()?.length > 0) {
+    if (defType === "password") {
       setType("text");
     } else {
       setType("password");

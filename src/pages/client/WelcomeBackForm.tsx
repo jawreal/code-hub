@@ -1,4 +1,4 @@
-import { useState, useCallback, ChangeEvent } from 'react';
+import { useState, useCallback, ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';
@@ -26,8 +26,29 @@ const WelcomeBack = () => {
     }));
   }, []);
   
+  const onSignin = useCallback(async(e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const result = await fetch('http://localhost:3000/auth/sign-in', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(siginData)
+      });
+      const response = await result.json();
+      if(response.status === 200){
+        console.log(response?.message)
+      }else if(response.status === 401){
+        console.log(response?.message)
+      }
+    }catch(err){
+      console.error(err)
+    }
+  }, [siginData])
+  
   return (
-      <form name="sign-in" className="flex flex-col w-full">
+      <form name="sign-in" onSubmit={onSignin} className="flex flex-col w-full">
            <span className="text-xl font-medium dark:text-slate-200">Welcome Back</span>
            <div className="dark:text-zinc-200 flex gap-x-2 justify-center mb-3">
              <span className="text-zinc-500" >Don't have an account?</span>
