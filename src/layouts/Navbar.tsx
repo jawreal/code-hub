@@ -1,4 +1,4 @@
-import { useState, useCallback, lazy, Suspense } from 'react';
+import { useState, useCallback, lazy, Suspense, useMemo } from 'react';
 import { Sun, Moon, AlignJustify, Search, Bell } from "lucide-react";
 import useDarkMode from "../hooks/useDarkMode";
 import { useActivePath } from '../helpers/pathChecker';
@@ -23,7 +23,7 @@ const Navbar = () => {
     modal: false, 
   });
   const [darkMode, setDarkMode] = useDarkMode();
-  const SignInPage = useActivePath(location.pathname, 'sign-in');
+  const SelectedPage = useMemo(() => ["sign-in", "confirmation"].some(page => useActivePath(location.pathname, page)), [location]) 
   
   const openSidebar = useCallback(() => {
     setToggle((prev: TOGGLE_STATE) => ({ ...prev, sidebar: true }));
@@ -43,19 +43,19 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav className={`bg-inherit dark:bg-zinc-950 py-2 flex flex-row px-2 md:px-0 justify-center items-center ${!SignInPage ? "border-b dark:border-zinc-800 border-zinc-200" : ""} sticky top-0 z-50`}>
+    <nav className={`bg-inherit dark:bg-zinc-950 py-2 flex flex-row px-2 md:px-0 justify-center items-center ${!SelectedPage ? "border-b dark:border-zinc-800 border-zinc-200" : ""} sticky top-0 z-50`}>
       <div className="flex items-center mr-auto md:ml-5 ml-3 space-x-2">
-        {!SignInPage && <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 active:bg-zinc-300/50 active:dark:bg-zinc-800" icon={<AlignJustify size={22} />} onClick={openSidebar}/>}
-        <LogoHeader page={SignInPage} />
+        {!SelectedPage && <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 active:bg-zinc-300/50 active:dark:bg-zinc-800" icon={<AlignJustify size={22} />} onClick={openSidebar}/>}
+        <LogoHeader page={SelectedPage} />
       </div>
-      {!SignInPage && <BackdropBg show={toggle?.sidebar ?? false} setBackdrop={setToggle} objKey="sidebar">
+      {!SelectedPage && <BackdropBg show={toggle?.sidebar ?? false} setBackdrop={setToggle} objKey="sidebar">
         <Sidebar showSidebar={toggle?.sidebar ?? false} >
          <Suspense fallback={<SidebarSkeleton collapse={false} itemCount={navItems?.length} />}>
            <SidebarContent items={navItems} />
           </Suspense>
         </Sidebar>
       </BackdropBg>} 
-      {!SignInPage && <div className="w-full flex justify-end items-center">
+      {!SelectedPage && <div className="w-full flex justify-end items-center">
          <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 active:bg-zinc-300/50 active:dark:bg-zinc-800" icon={<Search size={22} />} onClick={openModal}/>
         <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 ml-2 active:bg-zinc-300/50 active:dark:bg-zinc-800" icon={<Bell size={22} />}/>
          <BackdropBg show={toggle.modal ?? false} setBackdrop={setToggle} position="items-start" objKey="modal">
@@ -64,14 +64,14 @@ const Navbar = () => {
             </Modal>
          </BackdropBg>
       </div>}
-      <div className={`flex flex-row ml-auto items-center ${SignInPage ? "md:mr-10" : "mr-3"}`}>
+      <div className={`flex flex-row ml-auto items-center ${SelectedPage ? "md:mr-10" : "mr-3"}`}>
         <Button
-        className={`${!SignInPage ? "p-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-200/30 dark:bg-zinc-900/40 mx-2" : "p-2"} text-zinc-400 dark:text-zinc-200 active:bg-zinc-300/50 active:dark:bg-zinc-800`}
+        className={`${!SelectedPage ? "p-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-200/30 dark:bg-zinc-900/40 mx-2" : "p-2"} text-zinc-400 dark:text-zinc-200 active:bg-zinc-300/50 active:dark:bg-zinc-800`}
         icon={darkMode ? <Moon size={22} /> : <Sun size={22} />}
         onClick={switchTheme}
       />
       
-      {!SignInPage && 
+      {!SelectedPage && 
          <div className="relative">
             <Button className="p-2 w-7 h-7 rounded-full bg-zinc-200" onClick={openDropdown}/>
             {toggle?.dropdown && <Dropdown setDropdown={setToggle} items={navDpItems} isSlice={false}/>}

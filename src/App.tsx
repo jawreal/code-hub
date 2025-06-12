@@ -11,6 +11,7 @@ const Challenge = lazy(() => import('./pages/client/Challenge'));
 const CreatePost = lazy(() => import('./pages/client/CreatePost'));
 const Questions = lazy(() => import('./pages/client/Questions'));
 const Profile = lazy(() => import('./pages/client/Profile'));
+const Confirmation = lazy(() => import('./pages/client/Confirmation'));
 
 import useDarkMode from './hooks/useDarkMode';
 import { AuthProvider } from './hooks/useAuthChecker';
@@ -84,6 +85,14 @@ function App() {
                <Route index element={<WelcomeBack />} />
                <Route path="create" element={<CreateAcc />} />
             </Route>
+            <Route
+              path="profile"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <Confirmation />
+                </Suspense>
+               }
+            />
           </Routes>
         </AuthProvider>
       </Router>
