@@ -86,7 +86,7 @@ function App() {
                <Route path="create" element={<CreateAcc />} />
             </Route>
             <Route
-              path="profile"
+              path="/confirmation"
               element={
                 <Suspense fallback={<PageFallback />}>
                   <Confirmation />

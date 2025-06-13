@@ -3,6 +3,7 @@ import { Sun, Moon, AlignJustify, Search, Bell } from "lucide-react";
 import useDarkMode from "../hooks/useDarkMode";
 import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';
+import Image from "../components/Image";
 import Button from "../components/Button";
 import Sidebar from "./Sidebar";
 const SidebarContent = lazy(() => import("./SidebarContent"));
@@ -14,8 +15,10 @@ import Dropdown from "../components/Dropdown";
 import LogoHeader from '../components/LogoHeader';
 import { navItems, navDpItems } from '../data/sidebarData';
 import { TOGGLE_STATE } from '../helpers/reusableTypes';
+import { useAuthContext } from '../hooks/useAuthChecker';
 
 const Navbar = () => {
+  const { imageUrl } = useAuthContext();
   const location = useLocation();
   const [toggle, setToggle] = useState<TOGGLE_STATE>({
     dropdown: false, 
@@ -73,7 +76,9 @@ const Navbar = () => {
       
       {!SelectedPage && 
          <div className="relative">
-            <Button className="p-2 w-7 h-7 rounded-full bg-zinc-200" onClick={openDropdown}/>
+            <Button className="w-7 h-7 rounded-full" onClick={openDropdown}>
+              <Image url={imageUrl} className="w-full h-full rounded-full" />
+            </Button>
             {toggle?.dropdown && <Dropdown setDropdown={setToggle} items={navDpItems} isSlice={false}/>}
          </div>}
       </div>
