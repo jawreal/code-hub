@@ -4,15 +4,21 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { getSession } from '../services/getSession';
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 
+interface Info {
+  username?: string;
+  image?: string;
+} 
+
 type Context = {
   refetch?: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
-  imageUrl?: string;
+  info: Info;
 }
+
 
 const AuthContext = createContext<Context | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [info, setInfo] = useState<Info | null>(null);
   const { data, isLoading, refetch } = useQuery({
     queryFn: getSession, 
     queryKey: ["session"], 
@@ -29,8 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if(data?.authenticated === true && currentEntryPage) {
           return navigate('/home', { replace: true}) 
         }
-        console.log(data?.image)
-        setImageUrl(data?.image); 
+        const { authenticated, ...userInfo } = data;
+        setInfo(userInfo); 
       }
     };
     
@@ -38,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [data, isLoading, navigate]);
 
   return (
-    <AuthContext.Provider value={{ refetch, imageUrl }}>
+    <AuthContext.Provider value={{ refetch, info }}>
       {children}
     </AuthContext.Provider>
   );

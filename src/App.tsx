@@ -67,7 +67,7 @@ function App() {
                 }
               />
               <Route
-                path="profile"
+                path="profile/:params"
                 element={
                   <Suspense fallback={<PageFallback />}>
                     <Profile />

@@ -1,10 +1,13 @@
+import { useQuery } from '@tanstack/react-query';
 import Image from '../../components/Image';
+import { useParams } from 'react-router-dom';
 import { STATSDATA_TYPE } from '../../helpers/reusableTypes';
 import { PencilLine, History, MapPin, Mail } from 'lucide-react';
 import Button from '../../components/Button';
 import Stats from '../../components/Stats';
 import Details from '../../components/Details';
 import TagBadge from '../../components/TagBadge';
+import getInfo from '../../services/getInfo';
 const tagItemsData = ["JavaScript", "Java", "Python", "Php", "NodeJs"];
 const statsData: STATSDATA_TYPE[] = [
   { total: 36, hasBorder: true, postType: "Questions" },
@@ -13,6 +16,11 @@ const statsData: STATSDATA_TYPE[] = [
 ];
 
 const Profile = () => {
+  const { params } = useParams();
+  const { data, isLoading } = useQuery({
+    queryKey: ["getInfo", params], 
+    queryFn: () => getInfo(params) //needs to be wrapped with function o it'd not immediately get fetched 
+  });
   return (
     <div className="w-full h-full flex flex-col md:flex-row p-2 space-y-3 md:space-x-3 md:space-y-0">
       <section className="w-full md:max-w-80 py-3 px-5 flex flex-col items-center rounded-md border border-zinc-200 dark:border-zinc-800">

@@ -18,7 +18,7 @@ import { TOGGLE_STATE } from '../helpers/reusableTypes';
 import { useAuthContext } from '../hooks/useAuthChecker';
 
 const Navbar = () => {
-  const { imageUrl } = useAuthContext();
+  const { info: { image } } = useAuthContext();
   const location = useLocation();
   const [toggle, setToggle] = useState<TOGGLE_STATE>({
     dropdown: false, 
@@ -77,7 +77,7 @@ const Navbar = () => {
       {!SelectedPage && 
          <div className="relative">
             <Button className="w-7 h-7 rounded-full" onClick={openDropdown}>
-              <Image url={imageUrl} className="w-full h-full rounded-full" />
+              <Image url={image} className="w-full h-full rounded-full" />
             </Button>
             {toggle?.dropdown && <Dropdown setDropdown={setToggle} items={navDpItems} isSlice={false}/>}
          </div>}
