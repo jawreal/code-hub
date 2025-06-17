@@ -1,7 +1,11 @@
+import { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Image from '../../components/Image';
 import { useParams } from 'react-router-dom';
-import { STATSDATA_TYPE } from '../../helpers/reusableTypes';
+import { STATSDATA_TYPE, TOGGLE_STATE } from '../../helpers/reusableTypes';
+import BackdropBg from '../../components/BackdropBg';
+import Modal from '../../components/Modal';
+import EditInfo from '../../components/EditInfo';
 import { PencilLine, History, MapPin, Mail } from 'lucide-react';
 import Button from '../../components/Button';
 import Stats from '../../components/Stats';
@@ -21,8 +25,32 @@ const Profile = () => {
     queryKey: ["getInfo", params], 
     queryFn: () => getInfo(params) //needs to be wrapped with function o it'd not immediately get fetched 
   });
+  const [edit, setEdit] = useState<TOGGLE_STATE>({
+    modal: false
+  });
+  
+  const openEditModal = useCallback(() => {
+    setEdit(prevState => ({
+     ...prevState, 
+     modal: true
+    }));
+  }, []);
+  
+  const closeEditModal = useCallback(() => {
+    setEdit(prevState => ({
+     ...prevState, 
+     modal: false
+    }));
+  }, []);
+  
+  
   return (
     <div className="w-full h-full flex flex-col md:flex-row p-2 space-y-3 md:space-x-3 md:space-y-0">
+      <BackdropBg show={edit.modal ?? false} setBackdrop={setEdit} position="items-center" objKey="modal">
+         <Modal openModal={edit?.modal ?? false} setModal={setEdit} showCloseBtn={false}>
+            <EditInfo closeModal={closeEditModal} />
+         </Modal>
+      </BackdropBg>
       <section className="w-full md:max-w-80 py-3 px-5 flex flex-col items-center rounded-md border border-zinc-200 dark:border-zinc-800">
          <Image className="bg-zinc-100 rounded-full w-[6rem] h-[6rem] md:w-[8rem] md:h-[8rem]" url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRg2OjmihDXthKrF4Eaqakobyr2JT422gRpa9XagT6OjSZf7p_TDQ8mgLM&s=10"/>
          <div className="w-full flex flex-col px-4 justify-center items-center">
@@ -30,7 +58,7 @@ const Profile = () => {
            <div className="flex flex-col items-center justify-center">
              <span className="dark:text-zinc-200 text-zinc-400 dark:text-zinc-600 text-sm md:text-base">user8080</span>
            </div>
-           <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex items-center self-center text-zinc-500 gap-x-2 my-2 text-sm md:text-base">
+           <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex items-center self-center text-zinc-500 gap-x-2 my-2 text-sm md:text-base" onClick={openEditModal}>
              <span><PencilLine size={17} /></span>
              <span>Edit profile</span> 
            </Button>

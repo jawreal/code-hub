@@ -77,7 +77,7 @@ const Navbar = () => {
       {!SelectedPage && 
          <div className="relative">
             <Button className="w-7 h-7 rounded-full" onClick={openDropdown}>
-              <Image url={image} className="w-full h-full rounded-full" />
+              {image && <Image url={image} className="w-full h-full rounded-full" />}
             </Button>
             {toggle?.dropdown && <Dropdown setDropdown={setToggle} items={navDpItems} isSlice={false}/>}
          </div>}

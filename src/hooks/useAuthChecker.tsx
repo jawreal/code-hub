@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           return navigate('/home', { replace: true}) 
         }
         const { authenticated, ...userInfo } = data;
+        console.log(data)
         setInfo(userInfo); 
       }
     };
