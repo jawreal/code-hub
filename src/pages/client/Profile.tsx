@@ -47,7 +47,7 @@ const Profile = () => {
   return (
     <div className="w-full h-full flex flex-col md:flex-row p-2 space-y-3 md:space-x-3 md:space-y-0">
       <BackdropBg show={edit.modal ?? false} setBackdrop={setEdit} position="items-center" objKey="modal">
-         <Modal openModal={edit?.modal ?? false} setModal={setEdit} showCloseBtn={false}>
+         <Modal openModal={edit?.modal ?? false} setModal={setEdit} showCloseBtn={true}>
             <EditInfo closeModal={closeEditModal} />
          </Modal>
       </BackdropBg>
