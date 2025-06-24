@@ -11,6 +11,7 @@ const Challenge = lazy(() => import('./pages/client/Challenge'));
 const CreatePost = lazy(() => import('./pages/client/CreatePost'));
 const Questions = lazy(() => import('./pages/client/Questions'));
 const Profile = lazy(() => import('./pages/client/Profile'));
+const Post = lazy(() => import('./pages/client/Post'));
 const Confirmation = lazy(() => import('./pages/client/Confirmation'));
 
 import useDarkMode from './hooks/useDarkMode';
@@ -63,6 +64,14 @@ function App() {
                 element={
                   <Suspense fallback={<PageFallback />}>
                     <Questions />
+                  </Suspense>
+                }
+              />
+             <Route
+                path="post"
+                element={
+                  <Suspense fallback={<PageFallback />}>
+                    <Post />
                   </Suspense>
                 }
               />
