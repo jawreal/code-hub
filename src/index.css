@@ -2,7 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+[data-color-mode="light"] .wmde-markdown-var,
+[data-color-mode="light"] .wmde-markdown {
+  --color-canvas-default: #fafafa !important; /* bg-zinc-50 */
+  --color-canvas-subtle: #f4f4f4 !important;  /* bg-zinc-300 */
+  --color-fg-default: #333333 !important;     /* dark text */
+  --color-fg-muted: #52525b !important;       /* text-zinc-600 */
+  --color-border-default: #d4d4d8 !important; /* border-zinc-300 */
+}
 
-body{
+[data-color-mode="dark"] .wmde-markdown-var,
+[data-color-mode="dark"] .wmde-markdown {
+  --color-canvas-default: #09090b !important; /* bg-zinc-950 */
+  --color-canvas-subtle: #18181b !important;  /* bg-zinc-900 */
+  --color-fg-default: #e4e4e7 !important;      /* text-zinc-200 */
+  --color-fg-muted: #a1a1aa !important;        /* text-zinc-400 */
+  --color-border-default: #52525b !important;  /* border-zinc-600 */
+}
+
+/* Targeting code blocks with overflow */
+code,
+pre,
+.wmde-markdown pre {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #a1a1aa #e4e4e7; /* Thumb and track color for Firefox */
+}
+
+/* WebKit Scrollbar for Chrome, Edge, Safari */
+code::-webkit-scrollbar,
+pre::-webkit-scrollbar,
+.wmde-markdown pre::-webkit-scrollbar {
+  height: 8px; /* for horizontal scroll */
+  width: 8px;  /* for vertical scroll */
+}
+
+code::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track,
+.wmde-markdown pre::-webkit-scrollbar-track {
+  background: #e4e4e7; /* Light gray track (zinc-200) */
+  border-radius: 4px;
+}
+
+code::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb,
+.wmde-markdown pre::-webkit-scrollbar-thumb {
+  background: #52525b; /* Thumb (zinc-600) */
+  border-radius: 4px; /* Less rounded */
+  border: 1px solid #d4d4d8; /* Optional border to enhance contrast */
+}
+
+
+*, *::before, *::after {
   box-sizing: border-box;
 }
