@@ -1,4 +1,5 @@
 import Button from './Button';
+import Image from './Image';
 import { ArrowBigUp, MessageSquare, EllipsisVertical, Reply } from 'lucide-react';
 import MDEditor from '@uiw/react-md-editor';
 
@@ -61,7 +62,7 @@ const UserPost = ({ width, isPreview = true, isComment = false, postId }: PostPr
   return (
    <div id={postId} className={`${width} rounded-lg ${isComment ? "" : "border border-zinc-200 dark:border-zinc-800 px-1 pb-1"} flex flex-col items-center bg-inherit bg-inherit`}>
     <div className={`${isComment ? "space-x-3" : "pt-2 px-3 space-x-2"} w-full flex items-center relative`}>
-     <div className="bg-zinc-300 rounded-full h-8 w-8"></div>
+        <Image url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-LaT3rgL4twXZHNE_nXw-ZjNALijN4PzW4w&s" className="rounded-full h-8 w-8" />
         <span className="font-medium flex flex-col dark:text-zinc-200">
         Kurumi
         <span className="text-sm text-zinc-400 inline-block">11:30 pm</span>
