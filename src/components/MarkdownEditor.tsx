@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, memo, Dispatch, SetStateAction, useMemo, u
 const MDEditor = lazy(() => import('@uiw/react-md-editor'));
 import { POSTDATA_TYPE } from '../helpers/reusableTypes';
 import MarkdownSkeleton from './MarkdownSkeleton';
+import rehypeSanitize from 'rehype-sanitize';
 import { debounce } from 'lodash';
 
 interface EDITOR_TYPE {
@@ -20,6 +21,9 @@ const MemoizedMDEditor = memo(({ value, onChange }: {
       visibleDragbar={true}
       preview="edit"
       onChange={onChange}
+      previewOptions={{
+        rehypePlugins: [[rehypeSanitize]]
+      }}
     />
   ), [value, onChange]); 
 });

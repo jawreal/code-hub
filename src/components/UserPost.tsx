@@ -2,13 +2,14 @@ import Button from './Button';
 import Image from './Image';
 import { ArrowBigUp, MessageSquare, EllipsisVertical, Reply } from 'lucide-react';
 import MDEditor from '@uiw/react-md-editor';
+import rehypeSanitize from 'rehype-sanitize';
 
 
 interface PostProps {
-  width: string;
-  isPreview: boolean;
-  isComment: boolean;
-  postId: string;
+  width?: string;
+  isPreview?: boolean;
+  isComment?: boolean;
+  postId?: string;
 }
 
 const content = `
@@ -75,7 +76,7 @@ const UserPost = ({ width, isPreview = true, isComment = false, postId }: PostPr
       <span className="truncate font-medium dark:text-zinc-200 text-lg">Customizing scrollbar</span> </>}
       <div className={`${isPreview ? "line-clamp-3 max-h-80" : ""} dark:text-zinc-400 text-sm md:text-base rounded-lg`}>
         <div className="wmde-markdown-var">
-           <MDEditor.Markdown source={content} />
+           <MDEditor.Markdown source={content}       rehypePlugins={[[rehypeSanitize]]}/>
          </div>
       </div>
       {!isComment && <div className="w-full flex overflow-auto space-x-1 pt-1">
