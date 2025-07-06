@@ -1,13 +1,42 @@
-import { memo } from 'react';
+import { memo, useState, useEffect, useCallback } from 'react';
+import type { ChangeEvent } from 'react';
 import Inputbox from './Inputbox';
 import Button from './Button';
 import { AtSign, Mail, MapPin, User, PencilLine } from 'lucide-react';
 
-interface PropsType {
-  closeModal?: () => void;
+interface InfoType {
+  displayName?: string;
+  email?: string;
+  username?: string;
+  profile_img?: string;
+  totalQuestions?: number;
+  totalChallenges?: number;
+  totalAnswers?: number;
+  lastSignin?: Date; 
 }
 
-const EditInfo = ({ closeModal }: PropsType) => {
+interface PropsType {
+  closeModal?: () => void;
+  data: InfoType;
+}
+
+const EditInfo = ({ closeModal, data }: PropsType) => {
+  const [info, setInfo] = useState<InfoType>({});
+  
+  useEffect(() => {
+    if(data){
+      setInfo({
+        displayName: data?.displayName ?? "", 
+        username: data?.username ?? "",
+        email: data?.email ?? "", 
+        address: data?.address ?? ""})
+    }
+  }, [data]);
+  
+  const setChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setInfo(prevInfo => ({...prevInfo, [name]: value }))
+  }, [info]);
   return (
     <div className="w-full flex flex-col gap-y-2 px-2">
       <div className="flex gap-x-2 justify-start items-start border-b border-zinc-200 dark:border-zinc-800 pb-3">
@@ -18,19 +47,19 @@ const EditInfo = ({ closeModal }: PropsType) => {
       </div>
       <div className="w-full flex flex-col text-start gap-y-1">
         <span className="font-medium text-sm dark:text-zinc-200">Full Name</span>
-        <Inputbox icon={<User className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your full name" />
+        <Inputbox name="displayName" onChange={setChange} value={info?.displayName?? ""} icon={<User className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your full name" />
       </div>
       <div className="w-full flex flex-col text-start gap-y-1">
         <span className="font-medium text-sm dark:text-zinc-200">Username</span>
-        <Inputbox icon={<AtSign className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your username" />
+        <Inputbox name="username" onChange={setChange} value={info?.username ?? ""} icon={<AtSign className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your username" />
       </div>
       <div className="w-full flex flex-col text-start gap-y-1">
         <span className="font-medium text-sm dark:text-zinc-200">Email</span>
-        <Inputbox icon={<Mail className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your email" />
+        <Inputbox name="email" onChange={setChange} value={info?.email ?? ""} icon={<Mail className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your email" />
       </div>
       <div className="w-full flex flex-col text-start gap-y-1">
         <span className="font-medium text-sm dark:text-zinc-200">Address</span>
-        <Inputbox icon={<MapPin className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your address" />
+        <Inputbox name="address" onChange={setChange} value={info?.address ?? ""} icon={<MapPin className="text-zinc-400 dark:text-zinc-600" size={22} />} placeholder="Your address" />
       </div>
       <div className="w-full flex items-center pt-2 dark:border-zinc-800">
          <Button className="flex-1 font-medium text-zinc-400" text="Cancel" onClick={closeModal}/>

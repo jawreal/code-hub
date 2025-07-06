@@ -48,7 +48,7 @@ const Profile = () => {
     <div className="w-full h-full flex flex-col md:flex-row p-2 space-y-3 md:space-x-3 md:space-y-0">
       <BackdropBg show={edit.modal ?? false} setBackdrop={setEdit} position="items-center" objKey="modal">
          <Modal openModal={edit?.modal ?? false} setModal={setEdit} showCloseBtn={true}>
-            <EditInfo closeModal={closeEditModal} />
+            <EditInfo closeModal={closeEditModal} data={data}/>
          </Modal>
       </BackdropBg>
       <section className="w-full md:max-w-80 py-3 px-5 flex flex-col items-center rounded-md border border-zinc-200 dark:border-zinc-800">
@@ -70,7 +70,7 @@ const Profile = () => {
            <div className="w-full flex flex-col justify-center px-1 pt-2 border-t border-zinc-200 dark:border-zinc-800 mt-2 dark:border-zinc-800 gap-y-1">
              <Details text="Joined Sep 2, 2024" isStartPosition={false} icon={<History className="flex-shrink-0 h-5 mt-1 md:h-6"/>} />
              <Details text={data?.email} isStartPosition={false} icon={<Mail className="flex-shrink-0 h-5 md:h-6"/>} />
-             <Details text="456 Oxford Street, London, United Kingdom" isStartPosition={true} icon={<MapPin className="mt-1 flex-shrink-0 h-5 md:h-6" />} />
+             <Details text={data?.address} isStartPosition={true} icon={<MapPin className="mt-1 flex-shrink-0 h-5 md:h-6" />} />
            </div>
          </div> 
       </section>
