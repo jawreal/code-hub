@@ -1,5 +1,4 @@
 import { useState, useCallback, lazy, Suspense } from 'react';
-import { POSTDATA_TYPE, TOGGLE_STATE, TAGS_TYPE } from '../../helpers/reusableTypes';
 import Spinner from '../../assets/Spinner'
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';

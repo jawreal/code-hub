@@ -4,7 +4,6 @@ import UserPost from '../../components/UserPost';
 import Button from '../../components/Button';
 import Image from '../../components/Image';
 import MarkdownSkeleton from '../../components/MarkdownSkeleton';
-import { MessageSquare } from 'lucide-react';
 import { useAuthContext } from '../../hooks/useAuthChecker';
 const MarkdownEditor = lazy(() => import('../../components/MarkdownEditor'));
 

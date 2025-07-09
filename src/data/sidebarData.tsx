@@ -1,4 +1,3 @@
-import { ITEMS_TYPE } from '../helpers/reusableTypes';
 import { Home, Trophy, HelpCircle, Tags, Plus, LayoutGrid, BookOpen, Layers, Award, Calendar, Sparkles, Zap, MessageSquareMore, Star, User, Settings, LogOut } from "lucide-react";
 
 

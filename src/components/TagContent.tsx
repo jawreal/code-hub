@@ -3,7 +3,6 @@ import Button from './Button';
 import TagButton from './TagButton';
 import AddNewTag from './AddNewTag';
 import InlineAlert from './InlineAlert';
-import { TAGS_TYPE, TOGGLE_STATE, INLINEALERT_TYPE } from '../helpers/reusableTypes';
 
 interface TAGCONTENT_TYPE {
   setSelectedTag: Dispatch<SetStateAction<TAGS_TYPE[]>>;

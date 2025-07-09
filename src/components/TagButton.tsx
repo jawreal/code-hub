@@ -1,7 +1,6 @@
 import { memo, useCallback, useRef } from 'react';
 import { X } from 'lucide-react';
 import Button from './Button';
-import { TAGS_TYPE } from '../helpers/reusableTypes';
 
 interface TAGBTN_TYPE {
   items: TAGS_TYPE[];

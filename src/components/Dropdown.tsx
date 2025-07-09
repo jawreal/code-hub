@@ -3,7 +3,6 @@ import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthChecker';
 import { Link } from 'react-router-dom';
-import { ITEMS_TYPE, TOGGLE_STATE } from '../helpers/reusableTypes';
 import ConfirmSignout from './ConfirmSignout';
 import BackdropBg from './BackdropBg';
 import Modal from './Modal';

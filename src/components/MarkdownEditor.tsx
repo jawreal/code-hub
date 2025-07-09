@@ -1,6 +1,5 @@
 import { lazy, Suspense, useCallback, memo, Dispatch, SetStateAction, useMemo, useState, useEffect } from 'react';
 const MDEditor = lazy(() => import('@uiw/react-md-editor'));
-import { POSTDATA_TYPE } from '../helpers/reusableTypes';
 import MarkdownSkeleton from './MarkdownSkeleton';
 import rehypeSanitize from 'rehype-sanitize';
 import { debounce } from 'lodash';

@@ -1,6 +1,5 @@
 import { useState, memo, useCallback } from 'react';
 import { useLocation } from "react-router-dom";
-import { ITEMS_TYPE, TOGGLE_STATE } from '../helpers/reusableTypes';
 import { useActivePath } from '../helpers/pathChecker';
 import { Link } from 'react-router-dom';
 import { Ellipsis } from "lucide-react";

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { STATSDATA_TYPE } from '../helpers/reusableTypes';
 
 interface STATS_TYPE {
   items: STATSDATA_TYPE[];

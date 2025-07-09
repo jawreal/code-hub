@@ -14,7 +14,6 @@ import SearchContent from "../components/SearchContent";
 import Dropdown from "../components/Dropdown";
 import LogoHeader from '../components/LogoHeader';
 import { navItems, navDpItems } from '../data/sidebarData';
-import { TOGGLE_STATE } from '../helpers/reusableTypes';
 import { useAuthContext } from '../hooks/useAuthChecker';
 
 const Navbar = () => {

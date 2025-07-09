@@ -1,7 +1,5 @@
 import { memo } from 'react';
 import { alertConfig } from '../data/inlineAlertConfig';
-import { INLINEALERT_TYPE } from '../helpers/reusableTypes';
-
 
 const InlineAlert = ({ type, text }: INLINEALERT_TYPE ) => {
   return (

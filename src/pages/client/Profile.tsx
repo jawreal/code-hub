@@ -2,7 +2,6 @@ import { useState, useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Image from '../../components/Image';
 import { useParams } from 'react-router-dom';
-import { STATSDATA_TYPE, TOGGLE_STATE } from '../../helpers/reusableTypes';
 import BackdropBg from '../../components/BackdropBg';
 import Modal from '../../components/Modal';
 import EditInfo from '../../components/EditInfo';
@@ -16,9 +15,9 @@ const tagItemsData = ["JavaScript", "Java", "Python", "Php", "NodeJs"];
 
 const Profile = () => {
   const { params } = useParams();
-  const { data, isLoading } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ["getInfo", params], 
-    queryFn: () => getInfo(params) //needs to be wrapped with function o it'd not immediately get fetched 
+    queryFn: () => getInfo(params ?? undefined) //needs to be wrapped with function o it'd not immediately get fetched 
   });
   const [edit, setEdit] = useState<TOGGLE_STATE>({
     modal: false
@@ -36,13 +35,14 @@ const Profile = () => {
     }));
   }, []);
   
+  if(isError) return <div>404 user not found</div>
+  
   const closeEditModal = useCallback(() => {
     setEdit(prevState => ({
      ...prevState, 
      modal: false
     }));
   }, []);
-  
   
   return (
     <div className="w-full h-full flex flex-col md:flex-row p-2 space-y-3 md:space-x-3 md:space-y-0">

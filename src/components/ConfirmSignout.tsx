@@ -2,7 +2,6 @@ import { LogOut } from 'lucide-react';
 import { useState, useCallback, MouseEvent, Dispatch, SetStateAction, memo } from 'react';
 import Button from './Button';
 import Spinner from '../assets/Spinner';
-import { TOGGLE_STATE } from '../helpers/reusableTypes';
 import { useAuthContext } from '../hooks/useAuthChecker';
 
 interface PROP_TYPE {

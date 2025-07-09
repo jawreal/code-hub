@@ -2,22 +2,11 @@ import { memo, useState, useEffect, useCallback } from 'react';
 import type { ChangeEvent } from 'react';
 import Inputbox from './Inputbox';
 import Button from './Button';
-import { AtSign, Mail, MapPin, User, PencilLine } from 'lucide-react';
-
-interface InfoType {
-  displayName?: string;
-  email?: string;
-  username?: string;
-  profile_img?: string;
-  totalQuestions?: number;
-  totalChallenges?: number;
-  totalAnswers?: number;
-  lastSignin?: Date; 
-}
+import { AtSign, Mail, MapPin, User } from 'lucide-react';
 
 interface PropsType {
   closeModal?: () => void;
-  data: InfoType;
+  data?: InfoType | undefined;
 }
 
 const EditInfo = ({ closeModal, data }: PropsType) => {
@@ -34,7 +23,7 @@ const EditInfo = ({ closeModal, data }: PropsType) => {
   }, [data]);
   
   const setChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
+    const { name, value } = e.target;
     setInfo(prevInfo => ({...prevInfo, [name]: value }))
   }, [info]);
   return (

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';
 import { Mail, Lock, AtSign } from 'lucide-react';
-import { CREDENTIALS_TYPE } from '../../helpers/reusableTypes';
+//import { CREDENTIALS_TYPE } from '../../helpers/reusableTypes';
 
 const CreateAcc = () => {
   const [signupData, setSignupData] = useState<CREDENTIALS_TYPE>({

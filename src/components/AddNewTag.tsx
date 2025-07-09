@@ -1,7 +1,6 @@
 import { memo, useState, useRef, useCallback, ChangeEvent, KeyboardEvent, Dispatch, SetStateAction } from 'react';
 import Inputbox from './Inputbox';
 import TagButton from './TagButton';
-import { TAGS_TYPE, INLINEALERT_TYPE } from '../helpers/reusableTypes';
 
 interface NEWTAG_TYPE {
   tags: TAGS_TYPE[];

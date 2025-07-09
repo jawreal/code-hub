@@ -1,5 +1,4 @@
 import React, { memo, useCallback } from 'react';
-import { TOGGLE_STATE } from '../helpers/reusableTypes';
 
 interface BACKDROP_TYPE {
   show: boolean;
