@@ -35,7 +35,6 @@ const Post = () => {
            </div>}
          </div>
          <UserPost postId="post2" width="w-full" isPreview={false} isComment={true}/>
-         <UserPost postId="post3" width="w-full" isPreview={false} isComment={true}/>
        </div>
     </div>
     );

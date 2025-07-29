@@ -1,4 +1,5 @@
 import { useState, useCallback, lazy, Suspense } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import Spinner from '../../assets/Spinner'
 import Inputbox from '../../components/Inputbox';
 import Button from '../../components/Button';
@@ -17,6 +18,7 @@ const CreatePost = () => {
   })
   const [postData, setPostData] = useState<POSTDATA_TYPE>({
     post_type: null, 
+    title: "", 
     body: "", 
   });
   const questionPost = useCallback(() => {
@@ -39,14 +41,24 @@ const CreatePost = () => {
   
   const filterTag = useCallback((tagName: string) => {
     setSelectedTag((prev) => prev.filter((tag) => tag.name !== tagName));
-  }, []);
+    setPostData(prevData => ({...prevData, tags: [tagName]}));
+  }, [postData]);
   
+  const handleTitle = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setPostData(prevData => ({...prevData, title: e.target.value }));
+  }, [postData]);
+  
+  const onSend = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const tagss = selectedTag.map((tag: string) => tag.name);
+    console.log({...postData, tags: tagss})
+  }, [postData, selectedTag]);
   
   
   return (
     <div className="w-full h-full bg-zinc-50 dark:bg-zinc-950 flex flex-col md:flex-row justify-center" >
       <main className="w-full order-2 h-full pb-8 px-3 md:px-2 md:max-w-[40rem]">
-        <form className="bg-inherit w-full p-2 rounded-md flex flex-col items-center p-3">
+        <form onSubmit={onSend} className="bg-inherit w-full p-2 rounded-md flex flex-col items-center p-3">
          <div className="w-full grid grid-cols-2 gap-x-2 mb-3">
            <span className="dark:text-zinc-200 font-medium col-span-2">What are you posting?</span>
            <small className="text-zinc-500 col-span-2 mb-2">select which one you are planning to post (required)</small>
@@ -76,7 +88,7 @@ const CreatePost = () => {
                <small className="text-zinc-500">enter a descriptive title for your post to help readers understand what it's about</small>
              </div>
              <div className="w-full">
-               <Inputbox placeholder="Error in Typescript" />
+               <Inputbox value={postData.title} onChange={handleTitle} placeholder="Your descriptive title" />
              </div>
            </div>
           <div className="w-full flex flex-col mt-2">
@@ -103,7 +115,7 @@ const CreatePost = () => {
            </div>
            <MarkdownEditor value={postData?.body ?? ""} setPostData={setPostData}/>
          </div>
-         <Button className="bg-zinc-200 rounded-md dark:bg-zinc-900 px-3 py-2 text-zinc-600 border border-zinc-300 dark:border-zinc-800 dark:text-zinc-200 font-medium mt-3 ml-auto flex items-center gap-x-2 justify-center" type="submit">
+         <Button className="bg-zinc-200 rounded-md dark:bg-zinc-900 active:bg-zinc-300/80 dark:active:bg-zinc-800/20 px-3 py-2 text-zinc-600 border border-zinc-300 dark:border-zinc-800 dark:text-zinc-200 font-medium mt-3 ml-auto flex items-center gap-x-2 justify-center" type="submit">
             <span><Send size={20} /></span>
             <span>Send Question</span>
          </Button>

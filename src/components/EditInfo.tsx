@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useCallback } from 'react';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import Inputbox from './Inputbox';
 import Button from './Button';
 import { AtSign, Mail, MapPin, User } from 'lucide-react';
@@ -26,8 +26,24 @@ const EditInfo = ({ closeModal, data }: PropsType) => {
     const { name, value } = e.target;
     setInfo(prevInfo => ({...prevInfo, [name]: value }))
   }, [info]);
+  
+  const updateInfo = useCallback(async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try{
+      const result = await fetch('http://localhost:3000/api/update-info', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      });
+      console.log(result);
+    }catch(err){
+      console.log(err)
+    }
+  }, [info]);
   return (
-    <div className="w-full flex flex-col gap-y-2 px-2">
+    <form onSubmit={updateInfo} className="w-full flex flex-col gap-y-2 px-2">
       <div className="flex gap-x-2 justify-start items-start border-b border-zinc-200 dark:border-zinc-800 pb-3">
         <div className="flex flex-col w-full items-start">
            <span className="text-lg font-medium dark:text-zinc-200"> Edit Profile</span>
@@ -52,9 +68,9 @@ const EditInfo = ({ closeModal, data }: PropsType) => {
       </div>
       <div className="w-full flex items-center pt-2 dark:border-zinc-800">
          <Button className="flex-1 font-medium text-zinc-400" text="Cancel" onClick={closeModal}/>
-         <Button className="flex-1 bg-emerald-500 dark:bg-emerald-600 p-2 font-medium rounded-md text-white" text="Update" /> 
+         <Button className="flex-1 bg-emerald-500 dark:bg-emerald-600 p-2 font-medium rounded-md text-white" text="Update" type="submit" /> 
       </div>
-    </div>
+    </form>
     );
 }; 
 

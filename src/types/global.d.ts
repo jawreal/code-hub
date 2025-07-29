@@ -6,10 +6,8 @@ declare global {
     email: string;
     password: string;
   };
-  interface InfoType {
+  interface InfoType extends Pick<CREDENTIALS_TYPE, 'username' | 'email'> {
     displayName?: string;
-    email?: string;
-    username?: string;
     profile_img?: string;
     address?: string;
     totalQuestions?: number;
@@ -31,7 +29,6 @@ declare global {
     post_type?: string | null;
     title?: string;
     body?: string;
-    tags?: string;
   }
   interface TAGS_TYPE {
     name: string;

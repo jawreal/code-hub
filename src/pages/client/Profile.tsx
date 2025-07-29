@@ -11,9 +11,11 @@ import Stats from '../../components/Stats';
 import Details from '../../components/Details';
 import TagBadge from '../../components/TagBadge';
 import getInfo from '../../services/getInfo';
+import { useAuthContext } from '../../hooks/useAuthChecker'
 const tagItemsData = ["JavaScript", "Java", "Python", "Php", "NodeJs"];
 
 const Profile = () => {
+  const { info: { username }} = useAuthContext();
   const { params } = useParams();
   const { data, isError } = useQuery({
     queryKey: ["getInfo", params], 
@@ -38,6 +40,7 @@ const Profile = () => {
   if(isError) return <div>404 user not found</div>
   
   const closeEditModal = useCallback(() => {
+    console.log(params, username)
     setEdit(prevState => ({
      ...prevState, 
      modal: false
@@ -58,10 +61,10 @@ const Profile = () => {
            <div className="flex flex-col items-center justify-center">
              <span className="dark:text-zinc-200 text-zinc-400 dark:text-zinc-600 text-sm md:text-base">{data?.username}</span>
            </div>
-           <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex items-center self-center text-zinc-500 gap-x-2 my-2 text-sm md:text-base" onClick={openEditModal}>
+           {username === params && <Button className="rounded-md border border-zinc-200 dark:border-zinc-800 py-1 px-2 bg-zinc-200/30 active:bg-zinc-300/50 active:dark:bg-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 flex items-center self-center text-zinc-500 gap-x-2 my-2 text-sm md:text-base" onClick={openEditModal}>
              <span><PencilLine size={17} /></span>
              <span>Edit profile</span> 
-           </Button>
+           </Button>}
            <div className="w-full flex flex-col">
              <div className="w-full flex space-x-2 my-2">
                 <Stats items={statsData} />

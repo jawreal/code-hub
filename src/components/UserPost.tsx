@@ -85,11 +85,11 @@ const UserPost = ({ width, isPreview = true, isComment = false, postId }: PostPr
       <div className="flex items-center space-x-2 mt-2 mb-1">
         <div className="px-2 flex rounded-lg border border-zinc-200 dark:border-zinc-800 items-center" >
           <Button className="p-1 text-zinc-500 dark:text-zinc-200" icon={<ArrowBigUp size={22} />} />
-          <span className="text-sm text-zinc-500 p-1">2.3k</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">2.3k</span>
         </div>
         <div className="px-2 flex rounded-lg border border-zinc-200 dark:border-zinc-800 items-center" >
           <Button className="p-1 text-zinc-500 dark:text-zinc-200" icon={isComment ? <Reply size={22} /> : <MessageSquare size={22} />} />
-          <span className="text-sm text-zinc-500 p-1">128</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">128</span>
         </div>
         </div>
       </div> 
