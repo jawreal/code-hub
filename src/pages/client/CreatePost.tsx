@@ -48,10 +48,22 @@ const CreatePost = () => {
     setPostData(prevData => ({...prevData, title: e.target.value }));
   }, [postData]);
   
-  const onSend = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const onSend = useCallback(async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const tagss = selectedTag.map((tag: string) => tag.name);
-    console.log({...postData, tags: tagss})
+    try{
+      const tagsToSend = selectedTag.map((tag: TAGS_TYPE) => ({ name: tag.name }));
+      console.log(tagsToSend)
+      await fetch('http://localhost:3000/api/upload-post', {
+        method: 'POST',  
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({...postData, tags: [...tagsToSend]}), 
+        credentials: 'include'
+      });
+    }catch(err){
+      console.log(err);
+    }
   }, [postData, selectedTag]);
   
   
