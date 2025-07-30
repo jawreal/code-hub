@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import PostSkeleton from '../../components/PostSkeleton';
 import SidebarSkeleton from '../../components/SidebarSkeleton';
 const SidebarContent = lazy(() => import('../../layouts/SidebarContent'));
-const UserPost = lazy(() => import('../../components/UserPost'));
+//const UserPost = lazy(() => import('../../components/UserPost'));
 import { challengeItems } from '../../data/sidebarData';
 
 
@@ -16,11 +16,6 @@ const Challenge = () => {
       </section>
       <main className="flex-[2] order-2 h-full pb-12 bg-inherit flex flex-col"> 
          <div className="h-full flex flex-col w-full gap-y-3 p-3">
-           <Suspense fallback={<PostSkeleton />}>
-             <UserPost width="w-full md:border-l-none px-2 max-w-[60rem]"/>
-             <UserPost width="w-full md:border-l-none px-2 max-w-[60rem]"/>
-             <UserPost width="w-full md:border-l-none px-2 max-w-[60rem]"/> 
-            </Suspense>
          </div>
       </main>      
     </div>

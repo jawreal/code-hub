@@ -17,7 +17,7 @@ const Post = () => {
   return (
     <div className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col justify-start gap-y-3 items-center p-2" >
       <div className="w-full max-w-[35rem] flex flex-col gap-y-3 p-2">
-         <UserPost postId="post1" width="w-full" isPreview={false} />
+         {/*<UserPost postId="post1" width="w-full" isPreview={false} />*/}
          <span className="dark:text-zinc-200 font-medium">comments</span> 
          <div className="w-full flex flex-col gap-y-3">
            <div className={`flex ${showCommentBtn ? "items-start" : "items-start"} gap-x-3`}>
@@ -34,7 +34,7 @@ const Post = () => {
                <Button className="p-2 rounded-md bg-emerald-500 dark:bg-emerald-600 text-emerald-50" icon={<Send size={20} />} />
            </div>}
          </div>
-         <UserPost postId="post2" width="w-full" isPreview={false} isComment={true}/>
+         {/*<UserPost postId="post2" width="w-full" isPreview={false} isComment={true}/>*/}
        </div>
     </div>
     );
