@@ -17,9 +17,9 @@ const UserPost = ({ width, isPreview = true, isComment = false, post, keyNumber 
   return (
    <div id={post._id.toString()} key={keyNumber} className={`${width} rounded-lg ${isComment ? "" : "border border-zinc-200 dark:border-zinc-800 px-1 pb-1"} flex flex-col items-center bg-inherit bg-inherit`}>
     <div className={`${isComment ? "space-x-3" : "pt-2 px-3 space-x-2"} w-full flex items-center relative`}>
-        <Image url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-LaT3rgL4twXZHNE_nXw-ZjNALijN4PzW4w&s" className="rounded-full h-8 w-8" />
+        <Image url={post.profile_img} className="rounded-full h-8 w-8" />
         <span className="font-medium flex flex-col dark:text-zinc-200">
-        Kurumi
+        {post.username}
         <span className="text-sm text-zinc-400 inline-block">11:30 pm</span>
       </span>
       <Button className={`right-0 ${isComment ? "py-2" : "p-2"} text-zinc-400 dark:text-zinc-200 absolute top-1`}icon={<EllipsisVertical size={22} />} />
@@ -33,7 +33,7 @@ const UserPost = ({ width, isPreview = true, isComment = false, post, keyNumber 
            <MDEditor.Markdown source={post.body}       rehypePlugins={[[rehypeSanitize]]}/>
          </div>
       </div>
-      {!isComment && <div className="w-full flex overflow-auto space-x-1 pt-1">
+      {!isComment && <div className="w-full flex overflow-hidden space-x-1 pt-1">
         {post.tags.map((tag) => <span className="bg-zinc-600/20 dark:bg-zinc-900 text-zinc-700 dark:text-slate-200 py-1 px-3 rounded-full inline-block self-start text-sm font-medium" key={tag._id}>{tag?.name}</span>)}
       </div>}
       <div className="flex items-center space-x-2 mt-2 mb-1">
