@@ -19,7 +19,8 @@ const Profile = () => {
   const { params } = useParams();
   const { data, isError } = useQuery({
     queryKey: ["getInfo", params], 
-    queryFn: () => getInfo(params ?? undefined) //needs to be wrapped with function o it'd not immediately get fetched 
+    queryFn: () => getInfo(params ?? undefined), //needs to be wrapped with function so it'd not immediately get fetched 
+    enabled: !!params
   });
   const [edit, setEdit] = useState<TOGGLE_STATE>({
     modal: false

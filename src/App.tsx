@@ -68,7 +68,7 @@ function App() {
                 }
               />
              <Route
-                path="post"
+                path="view-post/:postId"
                 element={
                   <Suspense fallback={<PageFallback />}>
                     <Post />

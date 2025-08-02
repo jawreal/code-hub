@@ -20,7 +20,7 @@ const AuthContext = createContext<Context | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [info, setInfo] = useState<Info | null>(null);
   const { data, isLoading, refetch } = useQuery({
-    queryFn: getSession, 
+    queryFn: () => getSession(), 
     queryKey: ["session"], 
   });
   const navigate = useNavigate();
