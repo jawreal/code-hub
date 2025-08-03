@@ -3,6 +3,7 @@ import { Sun, Moon, AlignJustify, Search, Bell } from "lucide-react";
 import useDarkMode from "../hooks/useDarkMode";
 import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';
+import Notification from "../components/Notification";
 import Image from "../components/Image";
 import Button from "../components/Button";
 import Sidebar from "./Sidebar";
@@ -59,7 +60,7 @@ const Navbar = () => {
       </BackdropBg>} 
       {!SelectedPage && <div className="w-full flex justify-end items-center">
          <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 active:bg-zinc-300/50 active:dark:bg-zinc-800" icon={<Search size={22} />} onClick={openModal}/>
-        <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 ml-2 active:bg-zinc-300/50 active:dark:bg-zinc-800" icon={<Bell size={22} />}/>
+         <Notification />
          <BackdropBg show={toggle.modal ?? false} setBackdrop={setToggle} position="items-start" objKey="modal">
             <Modal openModal={toggle?.modal ?? false} setModal={setToggle} showCloseBtn={false}>
               <SearchContent />

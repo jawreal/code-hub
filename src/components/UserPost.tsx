@@ -1,9 +1,11 @@
+import { useMemo } from 'react';
 import Button from './Button';
 import Image from './Image';
 import { Link } from 'react-router-dom';
 import { ArrowBigUp, MessageSquare, EllipsisVertical, Reply } from 'lucide-react';
 import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
+import formatDate from '../helpers/dateFormatter';
 
 
 interface PostProps {
@@ -14,13 +16,14 @@ interface PostProps {
 }
 
 const UserPost = ({ width, isPreview = true, isComment = false, userPost }: PostProps) => {
+  const timestamp = useMemo(() => formatDate(userPost?.createdAt), [userPost])
   return (
    <div id={userPost._id.toString()} className={`${width} rounded-lg ${isComment ? "" : "border border-zinc-200 dark:border-zinc-800 px-1 pb-1"} flex flex-col items-center bg-inherit bg-inherit`}>
     <div className={`${isComment ? "space-x-3" : "pt-2 px-3 space-x-2"} w-full flex items-center relative`}>
         <Image url={userPost.profile_img} className="rounded-full h-8 w-8" />
         <span className="font-medium flex flex-col dark:text-zinc-200">
         {userPost.username}
-        <span className="text-sm text-zinc-400 inline-block">11:30 pm</span>
+        <span className="text-sm text-zinc-400 inline-block">{timestamp ?? "2 days ago"}</span>
       </span>
       <Button className={`right-0 ${isComment ? "py-2" : "p-2"} text-zinc-400 dark:text-zinc-200 absolute top-1`}icon={<EllipsisVertical size={22} />} />
      </div>
@@ -40,13 +43,13 @@ const UserPost = ({ width, isPreview = true, isComment = false, userPost }: Post
       <div className="flex items-center space-x-2 mt-2 mb-1">
         <div className="px-2 flex rounded-lg border border-zinc-200 dark:border-zinc-800 items-center" >
           <Button className="p-1 text-zinc-500 dark:text-zinc-200" icon={<ArrowBigUp size={22} />} />
-          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">2.3k</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">{userPost?.votes ?? "0"}</span>
         </div>
         <div className="px-2 flex rounded-lg border border-zinc-200 dark:border-zinc-800 items-center" >
           <Link className="p-1 text-zinc-500 dark:text-zinc-200" to={`${window.location.origin}/view-post/${userPost._id}`}>
             {isComment ? <Reply size={22} /> : <MessageSquare size={22} />}
           </Link>
-          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">128</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">{userPost?.comments ?? "0"}</span>
         </div>
         </div>
       </div> 
