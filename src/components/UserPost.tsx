@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, Fragment } from 'react';
 import Button from './Button';
 import Image from './Image';
 import { Link } from 'react-router-dom';
@@ -23,15 +23,15 @@ const UserPost = ({ width, isPreview = true, isComment = false, userPost }: Post
         <Image url={userPost.profile_img} className="rounded-full h-8 w-8" />
         <span className="font-medium flex flex-col dark:text-zinc-200">
         {userPost.username}
-        <span className="text-sm text-zinc-400 inline-block">{timestamp ?? "2 days ago"}</span>
+        <span className="text-xs text-zinc-400 inline-block">{timestamp ?? "2 days ago"}</span>
       </span>
       <Button className={`right-0 ${isComment ? "py-2" : "p-2"} text-zinc-400 dark:text-zinc-200 absolute top-1`}icon={<EllipsisVertical size={22} />} />
      </div>
      <div className={`w-full flex flex-col ${isPreview ? "text-ellipsis overflow-hidden" : ""} ${isComment ? "pl-11 md:pl-10" : "px-3"}`}>
        <div className={`w-full rounded-md flex flex-col ${isComment ? "border border-zinc-200 dark:border-zinc-800 px-3 pt-3 pb-2 mt-2" : ""}`}>
-      {!isComment && <> <span className="bg-cyan-400/30 dark:bg-zinc-900 text-cyan-700 dark:text-cyan-500 py-1 my-1 px-3 rounded-full inline-block self-start text-sm font-medium">{userPost.post_type}</span>
-      <span className={`${isPreview ? 'truncate' : ''} font-medium dark:text-zinc-200 text-lg`}>{userPost.title}</span> </>}
-      <hr className="dark:border-zinc-800 border-zinc-300 my-2"/>
+      {!isComment && <Fragment> <span className="bg-cyan-400/30 dark:bg-zinc-900 text-cyan-700 dark:text-cyan-500 py-1 my-1 px-3 rounded-full inline-block self-start text-sm font-medium">{userPost.post_type}</span>
+      {userPost.title && <span className={`${isPreview ? 'line-clamp-2' : ''} font-medium dark:text-zinc-200 text-lg`}>{userPost.title}</span>}
+      </Fragment>}
       <div className={`${isPreview ? "line-clamp-3 max-h-80" : ""} dark:text-zinc-400 text-sm md:text-base rounded-lg`}>
         <div className="wmde-markdown-var">
            <MDEditor.Markdown source={userPost.body}       rehypePlugins={[[rehypeSanitize]]}/>

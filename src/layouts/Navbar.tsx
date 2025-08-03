@@ -1,5 +1,5 @@
 import { useState, useCallback, lazy, Suspense, useMemo } from 'react';
-import { Sun, Moon, AlignJustify, Search, Bell } from "lucide-react";
+import { Sun, Moon, AlignJustify, Search } from "lucide-react";
 import useDarkMode from "../hooks/useDarkMode";
 import { useActivePath } from '../helpers/pathChecker';
 import { useLocation } from 'react-router-dom';

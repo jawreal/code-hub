@@ -1,8 +1,8 @@
 import { formatDistanceToNow } from 'date-fns';
 
-const formatDate = (postTimstamp: string): string => {
-  if(!postTimstamp) return 
-  return formatDistanceToNow(new Date(postTimstamp), {
+const formatDate = (postTimetamp: string): string => {
+  if(!postTimetamp) return 
+  return formatDistanceToNow(new Date(postTimetamp ?? Date.now()), {
     addSuffix: true
   });
 };

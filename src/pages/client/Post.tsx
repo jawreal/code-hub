@@ -1,4 +1,5 @@
 import { useState, lazy, Suspense, useCallback } from 'react';
+import { v4 as generateId } from 'uuid';
 import { Send } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
@@ -12,8 +13,13 @@ const MarkdownEditor = lazy(() => import('../../components/MarkdownEditor'));
 const UserPost = lazy(() => import('../../components/UserPost'));
 
 const Post = () => {
-  const { info: { image } } = useAuthContext();
+  const { info: { image, username } } = useAuthContext();
   const { postId } = useParams();
+  const [newComment, setNewComment] = useState<POSTDATA_TYPE>({
+    body: "",
+    createdAt: Date.now()
+  });
+  const [postComments, setPostComments] = useState<POSTDATA_TYPE[]>([]);
   const [showCommentBtn, setCommentBtn] = useState<boolean>(true);
   const { data: postData, isLoading } =  useQuery({
     queryKey: ["usePost", postId], 
@@ -24,6 +30,17 @@ const Post = () => {
   const handleCommentBtn = useCallback(() => {
     setCommentBtn(prevState => !prevState);
   }, []);
+  
+  const sendComment = useCallback(() => {
+    setPostComments((prevComment: POSTDATA_TYPE) => [
+      ...prevComment,
+      {
+        _id: generateId(), 
+        username: username,
+        profile_img: image, 
+        ...newComment
+      }]);
+  }, [newComment, postComments]) 
   
   return (
     <div className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col justify-start gap-y-3 items-center p-2" >
@@ -38,16 +55,16 @@ const Post = () => {
                 <div className={`w-full ${showCommentBtn ? "" : "dark:border border-zinc-800 rounded-md"}`}>
                   {showCommentBtn ? (<Button className="w-full py-2 px-3 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 flex gap-x-2 items-center" text="Add your comment" type="button" onClick={handleCommentBtn} />) :
                  (<Suspense fallback={<MarkdownSkeleton />}>
-                    <MarkdownEditor />
+                    <MarkdownEditor value={newComment.body} setPostData={setNewComment}/>
                  </Suspense>)}
               </div>
            </div>
            {!showCommentBtn && <div className="w-full flex justify-end items-center gap-x-3">
                <Button className="p-2 text-zinc-400 dark:text-zinc-500 font-medium" text="discard" onClick={handleCommentBtn} />
-               <Button className="p-2 rounded-md bg-emerald-500 dark:bg-emerald-600 text-emerald-50" icon={<Send size={20} />} />
+               <Button className="p-2 rounded-md bg-emerald-500 dark:bg-emerald-600 text-emerald-50" icon={<Send size={20} />} onClick={sendComment} />
            </div>}
          </div>
-         {/*<UserPost postId="post2" width="w-full" isPreview={false} isComment={true}/>*/}
+         {postComments?.map((comment: any, idx: number) => <UserPost userPost={comment} width="w-full" isPreview={false} isComment={true} key={idx}/>)}
        </div>
     </div>
     );

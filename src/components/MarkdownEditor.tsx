@@ -58,7 +58,7 @@ const MarkdownEditor = ({ value, setPostData }: EDITOR_TYPE) => {
     <div className="w-full h-[25rem] md:h-[40rem]">
       <Suspense fallback={<MarkdownSkeleton />}>
         <MemoizedMDEditor 
-          value={localValue} // Use local state for immediate updates
+          value={localValue} 
           onChange={handleChange} 
         />
       </Suspense>

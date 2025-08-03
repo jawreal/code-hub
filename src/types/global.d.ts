@@ -29,6 +29,7 @@ declare global {
     post_type?: string | null;
     title?: string;
     body?: string;
+    createdAt?: Date;
   }
   interface TAGS_TYPE {
     name: string;

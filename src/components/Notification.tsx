@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import Button from './Button';
@@ -21,7 +21,7 @@ const Notification = () => {
   }, [show]);
   
   return (
-  <>
+  <Fragment>
     <Button className="p-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-200 bg-zinc-200/30 dark:bg-zinc-900/40 ml-2 active:bg-zinc-300/50 active:dark:bg-zinc-800 relative" onClick={onModal}>
        <span className="rounded-full bg-red-500 text-red-50 text-xs font-medium absolute right-0 top-0 flex justify-center items-center p-2 h-3 w-3">1</span>
        <Bell size={22} />
@@ -57,7 +57,7 @@ const Notification = () => {
           </div>
         </Modal>
     </BackdropBg>
-  </>
+  </Fragment>
   );
 };
 
