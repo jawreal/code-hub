@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense, useCallback } from 'react';
+import { useState, lazy, Suspense, useCallback, useMemo, useEffect } from 'react';
 import { v4 as generateId } from 'uuid';
 import { Send } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -17,36 +17,62 @@ const Post = () => {
   const { postId } = useParams();
   const [newComment, setNewComment] = useState<POSTDATA_TYPE>({
     body: "",
-    createdAt: Date.now()
   });
-  const [postComments, setPostComments] = useState<POSTDATA_TYPE[]>([]);
   const [showCommentBtn, setCommentBtn] = useState<boolean>(true);
   const { data: postData, isLoading } =  useQuery({
     queryKey: ["usePost", postId], 
     queryFn: () => getPostById(postId), 
     enabled: !!postId
    });
+   const [postComments, setPostComments] = useState<POSTDATA_TYPE[]>([]); 
+   
+   useEffect(() => {
+     if(postData){
+       setPostComments((post: any) => postData[0].comments)
+     }
+   }, [postData])
   
   const handleCommentBtn = useCallback(() => {
     setCommentBtn(prevState => !prevState);
   }, []);
   
-  const sendComment = useCallback(() => {
-    setPostComments((prevComment: POSTDATA_TYPE) => [
+  const sendComment = useCallback(async () => {
+    try{
+      setPostComments((prevComment: POSTDATA_TYPE) => [
       ...prevComment,
       {
         _id: generateId(), 
         username: username,
         profile_img: image, 
+        createdAt: Date.now(), 
         ...newComment
-      }]);
-  }, [newComment, postComments]) 
+      }]); // For postComments 
+      const { body, ...otherData } = newComment;
+      /*await fetch('http://localhost:3000/api/send-comment', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({
+          postId: postId, 
+          username: username,
+          profile_img: image, 
+          body: body, 
+        }), 
+        credentials: 'include'
+      });*/
+    }catch(err){
+      console.error(err)
+    }
+    setNewComment((prevComment: POSTDATA_TYPE) => ({...prevComment, body: ""})); // For newComment
+  }, [newComment, postComments, showCommentBtn]) 
   
   return (
     <div className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col justify-start gap-y-3 items-center p-2" >
       <div className="w-full max-w-[35rem] flex flex-col gap-y-3 p-2">
          {!isLoading && <Suspense fallback={<PostSkeleton />}>
-           {postData?.map((post: any, idx: number) => <UserPost userPost={post} width="w-full" key={idx} isPreview={false}/>)}
+           {postData?.map((post: any, idx: number) =>
+               <UserPost userPost={post} width="w-full" key={idx} isPreview={false}/>)}
          </Suspense>}
          <span className="dark:text-zinc-200 font-medium">comments</span> 
          <div className="w-full flex flex-col gap-y-3">

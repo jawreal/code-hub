@@ -18,7 +18,7 @@ interface PostProps {
 const UserPost = ({ width, isPreview = true, isComment = false, userPost }: PostProps) => {
   const timestamp = useMemo(() => formatDate(userPost?.createdAt), [userPost])
   return (
-   <div id={userPost._id.toString()} className={`${width} rounded-lg ${isComment ? "" : "border border-zinc-200 dark:border-zinc-800 px-1 pb-1"} flex flex-col items-center bg-inherit bg-inherit`}>
+   <div id={userPost?._id.toString()} className={`${width} rounded-lg ${isComment ? "" : "border border-zinc-200 dark:border-zinc-800 px-1 pb-1"} flex flex-col items-center bg-inherit bg-inherit`}>
     <div className={`${isComment ? "space-x-3" : "pt-2 px-3 space-x-2"} w-full flex items-center relative`}>
         <Image url={userPost.profile_img} className="rounded-full h-8 w-8" />
         <span className="font-medium flex flex-col dark:text-zinc-200">
@@ -49,7 +49,7 @@ const UserPost = ({ width, isPreview = true, isComment = false, userPost }: Post
           <Link className="p-1 text-zinc-500 dark:text-zinc-200" to={`${window.location.origin}/view-post/${userPost._id}`}>
             {isComment ? <Reply size={22} /> : <MessageSquare size={22} />}
           </Link>
-          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">{userPost?.comments ?? "0"}</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-200 font-medium p-1">{userPost?.comments?.length ?? "0"}</span>
         </div>
         </div>
       </div> 
