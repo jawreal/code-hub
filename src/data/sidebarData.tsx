@@ -1,33 +1,37 @@
-import { Home, Trophy, HelpCircle, Tags, Plus, LayoutGrid, BookOpen, Layers, Award, Calendar, Sparkles, Zap, MessageSquareMore, Star, User, Settings, LogOut } from "lucide-react";
+import { 
+  Home, Trophy, HelpCircle, Tags, Plus, LayoutGrid, 
+  BookOpen, Layers, Award, Calendar, Sparkles, Zap, 
+  MessageSquareMore, Star, User, Settings, LogOut 
+} from "lucide-react";
 
+const size: number = 19;
 
 export const challengeItems: ITEMS_TYPE[] = [
-  { name: "Overview", icon: <LayoutGrid size={22} /> },
-  { name: "Beginner", icon: <BookOpen size={22} /> },
-  { name: "Intermediate", icon: <Layers size={22} /> },
-  { name: "Advanced", icon: <Award size={22} /> },
-  { name: "Weekly", icon: <Calendar size={22} /> },
-  ];  
-  
+  { name: "Overview", icon: <LayoutGrid size={size} /> },
+  { name: "Beginner", icon: <BookOpen size={size} /> },
+  { name: "Intermediate", icon: <Layers size={size} /> },
+  { name: "Advanced", icon: <Award size={size} /> },
+  { name: "Weekly", icon: <Calendar size={size} /> },
+];
+
 export const questionItems: ITEMS_TYPE[] = [
-  { name: "Newest", icon: <Sparkles size={22} /> },
-  { name: "Active", icon: <Zap size={22} /> },
-  { name: "Unanswered", icon: <HelpCircle size={22} /> },
-  { name: "Frequently Asked", icon: <MessageSquareMore size={22} /> },
-  { name: "Top Rated", icon: <Star size={22} /> },
+  { name: "Newest", icon: <Sparkles size={size} /> },
+  { name: "Active", icon: <Zap size={size} /> },
+  { name: "Unanswered", icon: <HelpCircle size={size} /> },
+  { name: "Frequently Asked", icon: <MessageSquareMore size={size} /> },
+  { name: "Top Rated", icon: <Star size={size} /> },
 ];
 
 export const navItems: ITEMS_TYPE[] = [
-  { name: "Home", icon: <Home size={22} /> },
-  { name: "Challenges", icon: <Trophy size={22} /> },
-  { name: "Create Post", icon: <Plus size={22} /> },
-  { name: "Questions", icon: <HelpCircle size={22} /> },
-  { name: "Tags", icon: <Tags size={22} /> },
-  ];  
-  
-  
+  { name: "Home", icon: <Home size={size} /> },
+  { name: "Challenges", icon: <Trophy size={size} /> },
+  { name: "Create Post", icon: <Plus size={size} /> },
+  { name: "Questions", icon: <HelpCircle size={size} /> },
+  { name: "Tags", icon: <Tags size={size} /> },
+];
+
 export const navDpItems = [
-  { name: "Profile", icon: <User size={22} /> },
-  { name: "Settings", icon: <Settings size={22} /> },
-  { name: "Sign Out", icon: <LogOut size={22} /> }
+  { name: "Profile", icon: <User size={size} /> },
+  { name: "Settings", icon: <Settings size={size} /> },
+  { name: "Sign Out", icon: <LogOut size={size} /> }
 ];

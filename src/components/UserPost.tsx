@@ -18,7 +18,7 @@ interface PostProps {
 const UserPost = ({ width, isPreview = true, isComment = false, userPost }: PostProps) => {
   const timestamp = useMemo(() => formatDate(userPost?.createdAt), [userPost])
   return (
-   <div id={userPost?._id.toString()} className={`${width} rounded-lg ${isComment ? "" : "border border-zinc-200 dark:border-zinc-800 px-1 pb-1"} flex flex-col items-center bg-inherit bg-inherit`}>
+   <div id={userPost?._id.toString()} className={`${width} rounded-lg ${isComment ? "" : "border border-zinc-200 dark:border-zinc-800 px-1 pb-1"} flex flex-col items-center bg-inherit bg-inherit md:max-w-[35rem]`}>
     <div className={`${isComment ? "space-x-3" : "pt-2 px-3 space-x-2"} w-full flex items-center relative`}>
         <Image url={userPost.profile_img} className="rounded-full h-8 w-8" />
         <span className="font-medium flex flex-col dark:text-zinc-200">
@@ -32,8 +32,8 @@ const UserPost = ({ width, isPreview = true, isComment = false, userPost }: Post
       {!isComment && <Fragment> <span className="bg-cyan-400/30 dark:bg-zinc-900 text-cyan-700 dark:text-cyan-500 py-1 my-1 px-3 rounded-full inline-block self-start text-sm font-medium">{userPost.post_type}</span>
       {userPost.title && <span className={`${isPreview ? 'line-clamp-2' : ''} font-medium dark:text-zinc-200 text-lg`}>{userPost.title}</span>}
       </Fragment>}
-      <div className={`${isPreview ? "line-clamp-3 max-h-80" : ""} dark:text-zinc-400 text-sm md:text-base rounded-lg`}>
-        <div className="wmde-markdown-var">
+      <div className={`${isPreview ? "line-clamp-3 max-h-80" : ""} dark:text-zinc-400 text-sm md:text-base rounded-lg overflow-auto`}>
+        <div className="wmde-markdown-var w-full">
            <MDEditor.Markdown source={userPost.body}       rehypePlugins={[[rehypeSanitize]]}/>
          </div>
       </div>

@@ -30,7 +30,7 @@ const Notification = () => {
          <div className="flex flex-col w-full gap-y-2">
            <Link className="w-full flex flex-col items-start" to="#">
             <div className="w-full rounded-md border border-zinc-200 dark:border-zinc-800 flex items-center p-2 gap-x-2">
-               <Image url="https://avatar.iran.liara.run/public/boy" className="h-8 w-8 rounded-full self-start mt-2" />
+               <Image url="https://api.dicebear.com/9.x/bottts/svg?seed=Dante" className="h-8 w-8 rounded-full self-start mt-2" />
                <div className="flex flex-col w-full items-center text-left">
                   <span className="font-medium dark:text-zinc-200 self-start leading-tight">Dante02 commented to your post</span>
                   <p className="line-clamp-2 dark:text-zinc-200 text-sm">
@@ -42,7 +42,7 @@ const Notification = () => {
           </Link>
           <Link className="w-full flex flex-col items-start" to="#">
             <div className="w-full rounded-md border border-zinc-200 dark:border-zinc-800 flex items-center p-2 gap-x-2">
-               <Image url="https://avatar.iran.liara.run/public" className="h-8 w-8 rounded-full self-start mt-2" />
+               <Image url="https://api.dicebear.com/9.x/bottts/svg?seed=Carla" className="h-8 w-8 rounded-full self-start mt-2" />
                <div className="flex flex-col w-full items-center text-left">
                   <span className="font-medium dark:text-zinc-200 self-start leading-tight">def_not.Carla commented to your post</span>
                   <p className="line-clamp-2 dark:text-zinc-200 text-sm">

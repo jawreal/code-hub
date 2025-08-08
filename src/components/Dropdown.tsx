@@ -72,13 +72,13 @@ const Dropdown = ({ setDropdown, items, isSlice }: DP_TYPE) => {
          </Modal>
        </BackdropBg>
      </div>}
-     <ul ref={outsideRef} className={`absolute min-w-[11rem] flex flex-col items-center z-10 rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 mt-2 right-0 shadow shadow-sm overflow-hidden ${show?.modal && "hidden"}`} >
+     <ul ref={outsideRef} className={`absolute min-w-[9rem] flex flex-col items-center z-10 rounded-md border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 mt-2 right-0 shadow shadow-sm overflow-hidden py-1 ${show?.modal && "hidden"}`} >
          {memoizedItems?.map((item: ITEMS_TYPE) => {
           const newPath = item.name.replaceAll(" ", "-");
           const isSignOut = item?.name === "Sign Out";
           const currPath = useActivePath(location.pathname, newPath);
           return (<li key={item.name} className={`flex flex-row items-center w-full ${isSignOut && "border-t border-zinc-200 dark:border-zinc-700"}`}>
-             <Link to={`${!isSignOut ? (item.name === "Profile" ? `/profile/${username}` : `/${newPath.toLowerCase()}`) : "#"}`} className={`${currPath ? "font-medium bg-zinc-200/30 dark:bg-zinc-800" : "bg-100/30"} dark:text-zinc-200 text-sm py-3 px-3 w-full whitespace-nowrap flex gap-x-3 ${isSignOut && "active:bg-zinc-200/30 active:dark:bg-zinc-800/60"}`} onClick={isSignOut ? showConfirmSignout : undefined}>
+             <Link to={`${!isSignOut ? (item.name === "Profile" ? `/profile/${username}` : `/${newPath.toLowerCase()}`) : "#"}`} className={`${currPath ? "font-medium bg-zinc-200/30 dark:bg-zinc-800" : "bg-100/30"} dark:text-zinc-200 text-sm py-2 px-3 w-full whitespace-nowrap flex gap-2 ${isSignOut && "active:bg-zinc-200/30 active:dark:bg-zinc-800/60"}`} onClick={isSignOut ? showConfirmSignout : undefined}>
                {item.icon && <span className="text-zinc-400" >{item.icon}</span>}
               <span>{item.name}</span>
              </Link>

@@ -1,6 +1,6 @@
 const PostSkeleton = () => {
   return (
-  <div className="w-full max-w-[60rem] border rounded-lg border-zinc-200 dark:border-zinc-800 flex flex-col items-center px-1 pb-2 bg-inherit animate-pulse">
+  <div className="w-full max-w-[35rem] border rounded-lg border-zinc-200 dark:border-zinc-800 flex flex-col items-center px-1 pb-2 bg-inherit animate-pulse">
     <div className="pt-2 px-3 w-full flex items-center space-x-2">
       <div className="bg-zinc-300 dark:bg-zinc-700 rounded-full h-8 w-8"></div>
       <div className="flex flex-col space-y-1 w-24">
