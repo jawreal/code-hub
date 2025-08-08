@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import PostSkeleton from '../../components/PostSkeleton';
+//import PostSkeleton from '../../components/PostSkeleton';
 import SidebarSkeleton from '../../components/SidebarSkeleton';
 const SidebarContent = lazy(() => import('../../layouts/SidebarContent'));
 //const UserPost = lazy(() => import('../../components/UserPost'));

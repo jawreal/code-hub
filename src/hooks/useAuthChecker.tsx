@@ -5,8 +5,9 @@ import { getSession } from '../services/getSession';
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 
 interface Info {
+  authenticated?: boolean;
   username?: string;
-  image?: string;
+  image?: string | undefined;
 } 
 
 type Context = {
@@ -18,7 +19,11 @@ type Context = {
 const AuthContext = createContext<Context | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [info, setInfo] = useState<Info | null>(null);
+  const [info, setInfo] = useState<Info>({
+    authenticated: false, 
+    username: "", 
+    image: undefined 
+  });
   const { data, isLoading, refetch } = useQuery({
     queryFn: () => getSession(), 
     queryKey: ["session"], 
@@ -35,15 +40,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if(data?.authenticated === true && currentEntryPage) {
           return navigate('/home', { replace: true}) 
         }
-        const { authenticated, ...userInfo } = data;
-        console.log(data)
+        const { authenticated, ...userInfo } = data as Info;
         setInfo(userInfo); 
       }
     };
     
     checkAuth();
   }, [data, isLoading, navigate]);
-
+ 
+  //instead of info ?? null, it should be info: info ?? null
   return (
     <AuthContext.Provider value={{ refetch, info }}>
       {children}

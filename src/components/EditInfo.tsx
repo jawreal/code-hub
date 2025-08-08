@@ -10,7 +10,12 @@ interface PropsType {
 }
 
 const EditInfo = ({ closeModal, data }: PropsType) => {
-  const [info, setInfo] = useState<InfoType>({});
+  const [info, setInfo] = useState<InfoType>({
+      displayName: "", 
+      username: "",
+      email: "", 
+      address: ""
+  });
   
   useEffect(() => {
     if(data){

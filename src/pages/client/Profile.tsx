@@ -41,7 +41,6 @@ const Profile = () => {
   if(isError) return <div>404 user not found</div>
   
   const closeEditModal = useCallback(() => {
-    console.log(params, username)
     setEdit(prevState => ({
      ...prevState, 
      modal: false

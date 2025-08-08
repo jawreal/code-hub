@@ -13,7 +13,7 @@ declare global {
     totalQuestions?: number;
     totalChallenges?: number;
     totalAnswers?: number;
-    lastSignin?: Date; 
+    lastSignin?: Date | string; 
   }
   interface STATSDATA_TYPE {
     total?: number | undefined;
@@ -26,10 +26,11 @@ declare global {
     modal?: boolean;
   }
   interface POSTDATA_TYPE{
+    id?: string;
     post_type?: string | null;
     title?: string;
     body?: string;
-    createdAt?: Date;
+    createdAt?: number | Date; //number | Date if using Date.now()
   }
   interface TAGS_TYPE {
     name: string;

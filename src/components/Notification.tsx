@@ -6,12 +6,10 @@ import Image from './Image';
 import BackdropBg from './BackdropBg';
 import { Bell } from 'lucide-react';
 
-interface INotif {
-  showNotif?: boolean;
-}
-
 const Notification = () => {
-  const [show, setShow] = useState<TOGGLE_STATE[]>([]);
+  const [show, setShow] = useState<TOGGLE_STATE>({
+    modal: false
+  });
   
   const onModal = useCallback(() => {
     setShow((prevData: TOGGLE_STATE) => ({

@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense, useCallback, useMemo, useEffect } from 'react';
+import { useState, lazy, Suspense, useCallback, useEffect } from 'react';
 import { v4 as generateId } from 'uuid';
 import { Send } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -28,7 +28,7 @@ const Post = () => {
    
    useEffect(() => {
      if(postData){
-       setPostComments((post: any) => postData[0].comments)
+       setPostComments(postData[0].comments)
      }
    }, [postData])
   
@@ -38,7 +38,7 @@ const Post = () => {
   
   const sendComment = useCallback(async () => {
     try{
-      setPostComments((prevComment: POSTDATA_TYPE) => [
+      setPostComments((prevComment: POSTDATA_TYPE[]) => [
       ...prevComment,
       {
         _id: generateId(), 
@@ -47,8 +47,8 @@ const Post = () => {
         createdAt: Date.now(), 
         ...newComment
       }]); // For postComments 
-      const { body, ...otherData } = newComment;
-      /*await fetch('http://localhost:3000/api/send-comment', {
+      const { body } = newComment;
+      await fetch('http://localhost:3000/api/send-comment', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ const Post = () => {
           body: body, 
         }), 
         credentials: 'include'
-      });*/
+      });
     }catch(err){
       console.error(err)
     }
@@ -81,7 +81,7 @@ const Post = () => {
                 <div className={`w-full ${showCommentBtn ? "" : "dark:border border-zinc-800 rounded-md"}`}>
                   {showCommentBtn ? (<Button className="w-full py-2 px-3 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 flex gap-x-2 items-center" text="Add your comment" type="button" onClick={handleCommentBtn} />) :
                  (<Suspense fallback={<MarkdownSkeleton />}>
-                    <MarkdownEditor value={newComment.body} setPostData={setNewComment}/>
+                    <MarkdownEditor value={newComment?.body ?? ""} setPostData={setNewComment}/>
                  </Suspense>)}
               </div>
            </div>
